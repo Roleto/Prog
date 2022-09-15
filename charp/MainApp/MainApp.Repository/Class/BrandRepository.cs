@@ -41,7 +41,7 @@ namespace MainApp.Repository.Class
 
         public IQueryable<Brand> GetAll()
         {
-            return this.ctx.Brands.AsQueryable();
+            return this.ctx.Brands;
         }
     }
 }

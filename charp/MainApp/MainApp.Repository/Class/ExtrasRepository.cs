@@ -42,7 +42,7 @@ namespace MainApp.Repository.Class
 
         public IQueryable<Extra> GetAll()
         {
-            return this.ctx.Extras.AsQueryable();
+            return this.ctx.Extras;
         }
     }
 }
