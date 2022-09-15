@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MainApp.Logic\MainApp.Logic.csproj" />
+    <ProjectReference Include="..\MainApp.Models\MainApp.Models.csproj" />
+    <ProjectReference Include="..\MainApp.Repository\MainApp.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
