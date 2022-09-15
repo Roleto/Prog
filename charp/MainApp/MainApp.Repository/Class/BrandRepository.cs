@@ -19,7 +19,7 @@ namespace MainApp.Repository.Class
 
         public void Create(Brand newBrand)
         {
-            this.ctx.Add(newBrand);
+            this.ctx.Brands.Add(newBrand);
             this.ctx.SaveChanges();
         }
 
@@ -35,13 +35,13 @@ namespace MainApp.Repository.Class
         }
         public void Delete(int id)
         {
-            this.ctx.Remove(Read(id));
+            this.ctx.Brands.Remove(Read(id));
             this.ctx.SaveChanges();
         }
 
         public IQueryable<Brand> GetAll()
         {
-            return this.ctx.Brands;
+            return this.ctx.Brands.AsQueryable();
         }
     }
 }

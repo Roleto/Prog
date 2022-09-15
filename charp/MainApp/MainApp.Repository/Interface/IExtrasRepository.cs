@@ -10,7 +10,7 @@ namespace MainApp.Repository.Interface
     public interface IExtrasRepository
     {
         void Create(Extra newExtra);
-        void Read(int id);
+        Extra Read(int id);
         void Update(Extra newExtra);
         void Delete(int id);
         IQueryable<Extra> GetAll();

@@ -10,7 +10,7 @@ namespace MainApp.Repository.Interface
     public interface IModelRepository
     {
         void Create(Model newModel);
-        void Read(int id);
+        Model Read(int id);
         void Update(Model newModel);
         void Delete(int id);    
         IQueryable<Model> GetAll();
