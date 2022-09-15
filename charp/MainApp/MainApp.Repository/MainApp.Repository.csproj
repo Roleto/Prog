@@ -10,4 +10,8 @@
     <ProjectReference Include="..\MainApp.Models\MainApp.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Class\" />
+  </ItemGroup>
+
 </Project>

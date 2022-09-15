@@ -8,12 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Backend\" />
-    <Folder Include="Frontend\" />
-    <Folder Include="Shared\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MainApp.Models\MainApp.Models.csproj" />
   </ItemGroup>
 
