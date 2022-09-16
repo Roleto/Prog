@@ -27,17 +27,6 @@ namespace MainApp.Repository.Class
         {
             return this.ctx.Brands.FirstOrDefault(x => x.BrandId == id);
         }
-        public void Update(Brand newBrand)
-        {
-            var oldBrand = Read(newBrand.BrandId);
-            oldBrand.BrandName = newBrand.BrandName;
-            this.ctx.SaveChanges();
-        }
-        public void Delete(int id)
-        {
-            this.ctx.Brands.Remove(Read(id));
-            this.ctx.SaveChanges();
-        }
 
         public IQueryable<Brand> GetAll()
         {
