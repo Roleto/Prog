@@ -18,5 +18,10 @@ namespace MainApp.Models.DBModels
 
         public virtual Brand? Brand { get; set; }
         public virtual ICollection<Extra> Extras { get; set; }
+
+        public override string ToString()
+        {
+            return $"{BrandId} \t {ModelId} \t {ModelName} \t {Type} \t {BasePrice}";
+        }
     }
 }

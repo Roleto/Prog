@@ -11,5 +11,10 @@ namespace MainApp.Models.DBModels
         public string? Price { get; set; }
 
         public virtual Model? Model { get; set; }
+
+        public override string ToString()
+        {
+            return $"{ModelId} \t {ExtraId} \t {Name} \t {Price}";
+        }
     }
 }
