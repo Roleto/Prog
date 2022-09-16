@@ -43,9 +43,9 @@ internal class Program
 
         ConsoleMenu extraSubMenu = new ConsoleMenu(args, 1)
             .Add("List", () => List(TableEnum.Extra))
-            .Add("Add", () => Add(TableEnum.Model))
-            .Add("Update", () => Update(TableEnum.Model))
-            .Add("Delete", () => Delete(TableEnum.Model))
+            .Add("Add", () => Add(TableEnum.Extra))
+            .Add("Update", () => Update(TableEnum.Extra))
+            .Add("Delete", () => Delete(TableEnum.Extra))
             .Add("Back", ConsoleMenu.Close);
 
         ConsoleMenu menu = new ConsoleMenu(args, 0)
@@ -77,6 +77,7 @@ internal class Program
 
     private static void Update(TableEnum myEnum)
     {
+        int id = 0;
         switch (myEnum)
         {
             default:
@@ -90,16 +91,54 @@ internal class Program
                 }
                 Console.WriteLine("Which data you want to modify");
                 Console.Write("Id:");
-                int id = int.Parse(Console.ReadLine());
-                Console.Write("new BrandName:");
-                string brandName = Console.ReadLine();
+                id = int.Parse(Console.ReadLine());
                 var newBrand = brandLogic.Read(id);
-                newBrand.BrandName = brandName;
+                Console.Write("new BrandName:");
+                newBrand.BrandName = Console.ReadLine();
                 brandLogic.Update(newBrand);
                 break;
             case TableEnum.Model:
+                var models = modelLogic.GetAll();
+                Console.WriteLine("Updtating data to ModelTable.");
+                Console.WriteLine("BrandId \t ModelId \t ModelName \t Type \t\t BasePrice");
+                foreach (var item in models)
+                {
+                    Console.WriteLine(item);
+                }
+                Console.WriteLine("Which data you want to modify");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                var newModel = modelLogic.Read(id);
+                Console.Write("new BrandId:");
+                newModel.BrandId = int.Parse(Console.ReadLine());
+                Console.Write("new ModelName:");
+                newModel.ModelName = Console.ReadLine();
+                Console.Write("new Type:");
+                newModel.Type = Console.ReadLine();
+                Console.Write("new BasePrice:");
+                newModel.BasePrice = int.Parse(Console.ReadLine());
+                modelLogic.Update(newModel);
+
                 break;
             case TableEnum.Extra:
+                var extras = extrasLogic.GetAll();
+                Console.WriteLine("Updtating data to ExtraTable.");
+                Console.WriteLine("ModelId \t ExtraId \t ExtraName \t Price");
+                foreach (var item in extras)
+                {
+                    Console.WriteLine(item);
+                }
+                Console.WriteLine("Which data you want to modify");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                var newExtra = extrasLogic.Read(id);
+                Console.Write("new ModelId:");
+                newExtra.ModelId = int.Parse(Console.ReadLine());
+                Console.Write("new ExtraName:");
+                newExtra.Name = Console.ReadLine();
+                Console.Write("new Price:");
+                newExtra.Price = int.Parse(Console.ReadLine());
+                extrasLogic.Update(newExtra);
                 break;
         }
     }
