@@ -1,28 +1,52 @@
-﻿using System;
+﻿using Castle.Components.DictionaryAdapter;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using KeyAttribute = System.ComponentModel.DataAnnotations.KeyAttribute;
+
 
 namespace MainApp.Models.DBModels
 {
     public partial class Extra
     {
-        public Extra(int? modelId, int extraId, string? name, string? price)
+        public Extra()
+        {
+
+        }
+        public Extra(int modelId, string name, int price)
         {
             ModelId = modelId;
-            ExtraId = extraId;
             Name = name;
             Price = price;
         }
+        public Extra(string line)
+        {
+            string[] help = line.Split(';');
+            ModelId = int.Parse(help[0]);
+            ExtraId = int.Parse(help[1]);
+            Name = help[2];
+            Price = int.Parse(help[3]);
 
-        public int? ModelId { get; set; }
+        }
+
+        public int ModelId { get; set; }
+        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ExtraId { get; set; }
-        public string? Name { get; set; }
-        public string? Price { get; set; }
 
-        public virtual Model? Model { get; set; }
+        [StringLength(240)]
+        public string Name { get; set; }
+        
+        public int Price { get; set; }
 
         public override string ToString()
         {
-            return $"{ModelId} \t\t {ExtraId} \t\t {Name} \t {Price} ";
+            if (Name.Length < 6)
+                return $"{ModelId} \t\t {ExtraId} \t\t {Name} \t\t {Price} ";
+            else
+                return $"{ModelId} \t\t {ExtraId} \t\t {Name} \t {Price} ";
         }
     }
 }

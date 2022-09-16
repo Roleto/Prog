@@ -1,87 +1,69 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MainApp.Models.DBModels
 {
-    public partial class BikeDbContext : DbContext
+    public class BikeDbContext : DbContext
     {
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Model> Models { get; set; }
+        public DbSet<Extra> Extras { get; set; }
+
         public BikeDbContext()
         {
+            this.Database.EnsureCreated();
         }
 
-        public BikeDbContext(DbContextOptions<BikeDbContext> options)
-            : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-        }
-
-        public virtual DbSet<Brand> Brands { get; set; } = null!;
-        public virtual DbSet<Extra> Extras { get; set; } = null!;
-        public virtual DbSet<Model> Models { get; set; } = null!;
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
+            if (!builder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\BikeshopDB.mdf;Integrated Security=True");
+                builder
+                .UseInMemoryDatabase("bike")
+                .UseLazyLoadingProxies();
             }
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Brand>(entity =>
+            modelBuilder.Entity<Brand>();
+            
+            modelBuilder.Entity<Model>(model => model
+            .HasOne<Brand>()
+            .WithMany()
+            .HasForeignKey(model => model.BrandId)
+            .OnDelete(DeleteBehavior.Cascade));
+            
+            modelBuilder.Entity<Extra>(extra => extra
+            .HasOne<Model>()
+            .WithMany()
+            .HasForeignKey(extra => extra.ModelId)
+            .OnDelete(DeleteBehavior.Cascade));
+
+            modelBuilder.Entity<Brand>().HasData(new Brand[]
             {
-                entity.ToTable("Brand");
-
-                entity.Property(e => e.BrandId).ValueGeneratedNever();
-
-                entity.Property(e => e.BrandName)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
+                new Brand("1;Suzuki"),
+                new Brand("2;Bmw"),
+                new Brand("3;Honda")
             });
 
-            modelBuilder.Entity<Extra>(entity =>
+            modelBuilder.Entity<Model>().HasData(new Model[]
             {
-                entity.Property(e => e.ExtraId).ValueGeneratedNever();
-
-                entity.Property(e => e.Name)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
-
-                entity.Property(e => e.Price)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
-
-                entity.HasOne(d => d.Model)
-                    .WithMany(p => p.Extras)
-                    .HasForeignKey(d => d.ModelId)
-                    .HasConstraintName("FK_Extras_ToModel");
+                new Model("1;1;Drz 450;Enduro;10000"),
+                new Model("1;2;Gsxr 1000;Sport;20000"),
+                new Model("1;3;Rmx 450;Enduro;10000")
             });
 
-            modelBuilder.Entity<Model>(entity =>
+            modelBuilder.Entity<Extra>().HasData(new Extra[]
             {
-                entity.ToTable("Model");
-
-                entity.Property(e => e.ModelId).ValueGeneratedNever();
-
-                entity.Property(e => e.ModelName)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
-
-                entity.Property(e => e.Type)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
-
-                entity.HasOne(d => d.Brand)
-                    .WithMany(p => p.Models)
-                    .HasForeignKey(d => d.BrandId)
-                    .HasConstraintName("Models_Brand_FK");
+                new Extra("1;1;Wheel;500"),
+                new Extra("1;2;Exhaust;500")
             });
 
-            OnModelCreatingPartial(modelBuilder);
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

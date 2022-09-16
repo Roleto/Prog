@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MainApp.Models.DBModels
 {
@@ -7,30 +9,45 @@ namespace MainApp.Models.DBModels
     {
         public Model()
         {
-            Extras = new HashSet<Extra>();
-        }
 
-        public Model(int? brandId, int modelId, string? modelName, string? type, int? basePrice)
+        }
+        public Model(int brandId, string modelName, string type, int basePrice)
         {
             BrandId = brandId;
-            ModelId = modelId;
             ModelName = modelName;
             Type = type;
             BasePrice = basePrice;
         }
 
-        public int? BrandId { get; set; }
-        public int ModelId { get; set; }
-        public string? ModelName { get; set; }
-        public string? Type { get; set; }
-        public int? BasePrice { get; set; }
+        public Model(string line)
+        {
+            string[] help = line.Split(';');
+            BrandId = int.Parse(help[0]);
+            ModelId = int.Parse(help[1]);
+            ModelName = help[2];
+            Type = help[3]; 
+            BasePrice = int.Parse(help[4]);
+        }
 
-        public virtual Brand? Brand { get; set; }
-        public virtual ICollection<Extra> Extras { get; set; }
+        public int BrandId { get; set; }
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ModelId { get; set; }
+
+        [StringLength(240)]
+        public string ModelName { get; set; }
+
+        [StringLength(240)]
+        public string Type { get; set; }
+        public int BasePrice { get; set; }
 
         public override string ToString()
         {
-            return $"{BrandId} \t\t {ModelId} \t\t {ModelName} \t {Type} \t {BasePrice}";
+            if (Type.Length < 6)
+                return $"{BrandId} \t\t {ModelId} \t\t {ModelName} \t {Type} \t\t {BasePrice}";
+            else
+                return $"{BrandId} \t\t {ModelId} \t\t {ModelName} \t {Type} \t {BasePrice}";
         }
     }
 }

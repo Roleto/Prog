@@ -1,25 +1,37 @@
-﻿using System;
+﻿using Castle.Components.DictionaryAdapter;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using KeyAttribute = System.ComponentModel.DataAnnotations.KeyAttribute;
 
 namespace MainApp.Models.DBModels
 {
-    public partial class Brand
+    public class Brand
     {
         public Brand()
         {
-            Models = new HashSet<Model>();
-        }
 
-        public Brand(int brandId, string? brandName)
+        }
+        public Brand(string line)
         {
-            BrandId = brandId;
-            BrandName = brandName;
+            string[] help = line.Split(';');
+            if (help.Length == 1)
+            {
+                BrandName = line;
+            }
+            else
+            {
+                BrandId = int.Parse(help[0]);
+                BrandName = help[1];
+            }
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BrandId { get; set; }
-        public string? BrandName { get; set; }
-
-        public virtual ICollection<Model> Models { get; set; }
+        [StringLength(240)]
+        public string BrandName { get; set; }
 
         public override string ToString()
         {

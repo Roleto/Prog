@@ -100,7 +100,7 @@ internal class Program
                 int id =int.Parse(Console.ReadLine()); 
                 Console.Write("BrandName:");
                 string brandName = Console.ReadLine();
-                brandLogic.Create(new Brand(id, brandName));
+                brandLogic.Create(new Brand(brandName));
                 break;
             case TableEnum.Model:
                 break;
