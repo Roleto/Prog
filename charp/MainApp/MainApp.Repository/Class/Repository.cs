@@ -27,9 +27,9 @@ namespace MainApp.Repository.Class
 
         public abstract void Update(T newEntity);
 
-        public void Delete(int id)
+        public void Delete(T Entity)
         {
-            ctx.Set<T>().Remove(Read(id));
+            ctx.Set<T>().Remove(Entity);
             ctx.SaveChanges();
         }
 

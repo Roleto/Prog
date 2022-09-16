@@ -63,6 +63,10 @@ internal class Program
         {
             default:
             case TableEnum.Brand:
+                Console.WriteLine("Delete data from BrandTable.");
+                Console.Write("Id:");
+                int id = int.Parse(Console.ReadLine());
+                brandLogic.Delete(id);
                 break;
             case TableEnum.Model:
                 break;
@@ -91,6 +95,12 @@ internal class Program
         {
             default:
             case TableEnum.Brand:
+                Console.WriteLine("Adding data to BrandTable.");
+                Console.Write("BrandId:");
+                int id =int.Parse(Console.ReadLine()); 
+                Console.Write("BrandName:");
+                string brandName = Console.ReadLine();
+                brandLogic.Create(new Brand(id, brandName));
                 break;
             case TableEnum.Model:
                 break;

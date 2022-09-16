@@ -10,6 +10,12 @@ namespace MainApp.Models.DBModels
             Models = new HashSet<Model>();
         }
 
+        public Brand(int brandId, string? brandName)
+        {
+            BrandId = brandId;
+            BrandName = brandName;
+        }
+
         public int BrandId { get; set; }
         public string? BrandName { get; set; }
 

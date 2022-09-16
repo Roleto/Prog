@@ -10,6 +10,15 @@ namespace MainApp.Models.DBModels
             Extras = new HashSet<Extra>();
         }
 
+        public Model(int? brandId, int modelId, string? modelName, string? type, int? basePrice)
+        {
+            BrandId = brandId;
+            ModelId = modelId;
+            ModelName = modelName;
+            Type = type;
+            BasePrice = basePrice;
+        }
+
         public int? BrandId { get; set; }
         public int ModelId { get; set; }
         public string? ModelName { get; set; }

@@ -11,7 +11,7 @@ namespace MainApp.Repository.Interface
         void Create(T newEntity);
         T Read(int id);
         void Update(T newEntity);
-        void Delete(int id);
+        void Delete(T Entity);
 
         IQueryable<T> GetAll();
 

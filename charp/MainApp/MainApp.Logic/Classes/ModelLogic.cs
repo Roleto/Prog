@@ -39,7 +39,7 @@ namespace MainApp.Logic.Classes
         }
         public void Delete(int id)
         {
-            this.repo.Delete(id);
+            this.repo.Delete(Read(id));
         }
 
         public IEnumerable<Model> GetAll()
