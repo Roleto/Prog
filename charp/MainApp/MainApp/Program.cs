@@ -81,6 +81,21 @@ internal class Program
         {
             default:
             case TableEnum.Brand:
+                Console.WriteLine("Updtating data to BrandTable.");
+                var brands = brandLogic.GetAll();
+                Console.WriteLine("Id \t BrandName");
+                foreach (var item in brands)
+                {
+                    Console.WriteLine(item);
+                }
+                Console.WriteLine("Which data you want to modify");
+                Console.Write("Id:");
+                int id = int.Parse(Console.ReadLine());
+                Console.Write("new BrandName:");
+                string brandName = Console.ReadLine();
+                var newBrand = brandLogic.Read(id);
+                newBrand.BrandName = brandName;
+                brandLogic.Update(newBrand);
                 break;
             case TableEnum.Model:
                 break;
@@ -91,21 +106,28 @@ internal class Program
 
     private static void Add(TableEnum myEnum)
     {
-        switch (myEnum)
+        try
         {
-            default:
-            case TableEnum.Brand:
-                Console.WriteLine("Adding data to BrandTable.");
-                Console.Write("BrandId:");
-                int id =int.Parse(Console.ReadLine()); 
-                Console.Write("BrandName:");
-                string brandName = Console.ReadLine();
-                brandLogic.Create(new Brand(brandName));
-                break;
-            case TableEnum.Model:
-                break;
-            case TableEnum.Extra:
-                break;
+
+            switch (myEnum)
+            {
+                default:
+                case TableEnum.Brand:
+                    Console.WriteLine("Adding data to BrandTable.");
+                    Console.Write("BrandName:");
+                    string brandName = Console.ReadLine();
+                    brandLogic.Create(new Brand(brandName));
+                    break;
+                case TableEnum.Model:
+                    break;
+                case TableEnum.Extra:
+                    break;
+            }
+        }
+        catch (ArgumentException e)
+        {
+            Console.WriteLine(e.Message);
+            Console.ReadLine();
         }
     }
 

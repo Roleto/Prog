@@ -20,6 +20,9 @@ namespace MainApp.Logic.Classes
 
         public void Create(Brand newEntity)
         {
+            var brand = this.repo.GetAll().FirstOrDefault(x => x.BrandName.ToLower() == newEntity.BrandName.ToLower());
+            if (brand != null)
+                throw new ArgumentException("This Brand is alredy in the database");
             this.repo.Create(newEntity);
         }
 
