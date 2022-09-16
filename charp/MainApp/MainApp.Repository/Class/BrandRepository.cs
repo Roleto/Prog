@@ -8,29 +8,24 @@ using System.Threading.Tasks;
 
 namespace MainApp.Repository.Class
 {
-    public class BrandRepository : IBrandRepository
+    public class BrandRepository : Repository<Brand>, IRepository<Brand>
     {
-        BikeDbContext ctx;
-
-        public BrandRepository(BikeDbContext ctx)
+        public BrandRepository(BikeDbContext ctx) : base(ctx)
         {
-            this.ctx = ctx;
         }
-
-        public void Create(Brand newBrand)
-        {
-            this.ctx.Brands.Add(newBrand);
-            this.ctx.SaveChanges();
-        }
-
-        public Brand Read(int id)
+        public override Brand Read(int id)
         {
             return this.ctx.Brands.FirstOrDefault(x => x.BrandId == id);
         }
 
-        public IQueryable<Brand> GetAll()
+        public override void Update(Brand newEntity)
         {
-            return this.ctx.Brands;
+            var oldBrand = Read(newEntity.BrandId);
+            foreach (var item in oldBrand.GetType().GetProperties())
+            {
+                item.SetValue(oldBrand, item.GetValue(newEntity));
+            }
+            this.ctx.SaveChanges();
         }
     }
 }

@@ -8,41 +8,25 @@ using System.Threading.Tasks;
 
 namespace MainApp.Repository.Class
 {
-    public class ExtrasRepository : IExtrasRepository
+    public class ExtrasRepository : Repository<Extra>, IRepository<Extra>
     {
-        BikeDbContext ctx;
-
-        public ExtrasRepository(BikeDbContext ctx)
+        public ExtrasRepository(BikeDbContext ctx) : base(ctx)
         {
-            this.ctx = ctx;
         }
 
-        public void Create(Extra newExtra)
-        {
-            this.ctx.Extras.Add(newExtra);
-            ctx.SaveChanges();
-        }
-        public Extra Read(int id)
+        public override Extra Read(int id)
         {
             return this.ctx.Extras.FirstOrDefault(x => x.ExtraId == id);
         }
 
-        public void Update(Extra newExtra)
+        public override void Update(Extra newEntity)
         {
-            var oldExtra = Read(newExtra.ExtraId);
-            oldExtra.Name = newExtra.Name;
-            oldExtra.Price = newExtra.Price;
+            var oldExtra = Read(newEntity.ExtraId);
+            foreach (var item in oldExtra.GetType().GetProperties())
+            {
+                item.SetValue(oldExtra, item.GetValue(newEntity));
+            }
             this.ctx.SaveChanges();
-        }
-        public void Delete(int id)
-        {
-            this.ctx.Extras.Remove(Read(id));
-            this.ctx.SaveChanges();
-        }
-
-        public IQueryable<Extra> GetAll()
-        {
-            return this.ctx.Extras;
         }
     }
 }

@@ -8,41 +8,25 @@ using System.Threading.Tasks;
 
 namespace MainApp.Repository.Class
 {
-    public class ModelRepository : IModelRepository
+    public class ModelRepository : Repository<Model>, IRepository<Model>
     {
-        BikeDbContext ctx;
-
-        public ModelRepository(BikeDbContext ctx)
+        public ModelRepository(BikeDbContext ctx) : base(ctx)
         {
-            this.ctx = ctx;
         }
 
-        public void Create(Model newModel)
-        {
-            this.ctx.Models.Add(newModel);
-            this.ctx.SaveChanges();
-        }
-        public Model Read(int id)
+        public override Model Read(int id)
         {
             return this.ctx.Models.FirstOrDefault(x => x.ModelId == id);
         }
 
-        public void Update(Model newModel)
+        public override void Update(Model newEntity)
         {
-            var oldModel = Read(newModel.ModelId);
-            oldModel.ModelName = newModel.ModelName;
-            oldModel.BasePrice = newModel.BasePrice;
+            var oldModel = Read(newEntity.ModelId);
+            foreach (var item in oldModel.GetType().GetProperties())
+            {
+                item.SetValue(oldModel, item.GetValue(newEntity));
+            }
             this.ctx.SaveChanges();
-        }
-        public void Delete(int id)
-        {
-            this.ctx.Models.Remove(Read(id));
-            this.ctx.SaveChanges();
-        }
-
-        public IQueryable<Model> GetAll()
-        {
-            return this.ctx.Models; 
         }
     }
 }
