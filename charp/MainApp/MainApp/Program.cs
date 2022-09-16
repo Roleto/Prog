@@ -1,8 +1,14 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using ConsoleTools;
+using MainApp.Logic.Classes;
+using MainApp.Models.DBModels;
+using MainApp.Repository.Class;
 
 internal class Program
 {
+    static BrandLogic brandLogic;
+    static ModelLogic modelLogic;
+    static ExtrasLogic extrasLogic;
     enum TableEnum
     {
         Brand,
@@ -11,12 +17,22 @@ internal class Program
     }
     private static void Main(string[] args)
     {
+        BikeDbContext ctx = new BikeDbContext();
+
+        BrandRepository brandRepository = new BrandRepository(ctx);
+        ModelRepository modelRepository = new ModelRepository(ctx);
+        ExtrasRepository extrasRepository = new ExtrasRepository(ctx);
+
+        brandLogic = new BrandLogic(brandRepository);
+        modelLogic = new ModelLogic(modelRepository); 
+        extrasLogic = new ExtrasLogic(extrasRepository);
+
         ConsoleMenu brandSubMenu = new ConsoleMenu(args, 1)
-    .Add("List", () => List(TableEnum.Brand))
-    .Add("Add", () => Add(TableEnum.Brand))
-    .Add("Update", () => Update(TableEnum.Brand))
-    .Add("Delete", () => Delete(TableEnum.Brand))
-    .Add("Back", ConsoleMenu.Close);
+            .Add("List", () => List(TableEnum.Brand))
+            .Add("Add", () => Add(TableEnum.Brand))
+            .Add("Update", () => Update(TableEnum.Brand))
+            .Add("Delete", () => Delete(TableEnum.Brand))
+            .Add("Back", ConsoleMenu.Close);
 
         ConsoleMenu modelSubMenu = new ConsoleMenu(args, 1)
             .Add("List", () => List(TableEnum.Model))
@@ -41,23 +57,80 @@ internal class Program
         menu.Show();
     }
 
-    private static void Delete(TableEnum brand)
+    private static void Delete(TableEnum myEnum)
     {
-        throw new NotImplementedException();
+        switch (myEnum)
+        {
+            default:
+            case TableEnum.Brand:
+                break;
+            case TableEnum.Model:
+                break;
+            case TableEnum.Extra:
+                break;
+        }
     }
 
-    private static void Update(TableEnum brand)
+    private static void Update(TableEnum myEnum)
     {
-        throw new NotImplementedException();
+        switch (myEnum)
+        {
+            default:
+            case TableEnum.Brand:
+                break;
+            case TableEnum.Model:
+                break;
+            case TableEnum.Extra:
+                break;
+        }
     }
 
-    private static void Add(TableEnum brand)
+    private static void Add(TableEnum myEnum)
     {
-        throw new NotImplementedException();
+        switch (myEnum)
+        {
+            default:
+            case TableEnum.Brand:
+                break;
+            case TableEnum.Model:
+                break;
+            case TableEnum.Extra:
+                break;
+        }
     }
 
-    private static void List(TableEnum brand)
+    private static void List(TableEnum myEnum)
     {
-        throw new NotImplementedException();
+        switch (myEnum)
+        {
+            default:
+            case TableEnum.Brand:
+                var brands = brandLogic.GetAll();
+                Console.WriteLine("Id \t BrandName");
+                foreach (var item in brands)
+                {
+                    Console.WriteLine(item);
+                }
+                Console.ReadLine();
+                break;
+            case TableEnum.Model:
+                var models = modelLogic.GetAll();
+                Console.WriteLine("BrandId \t ModelId \t ModelName \t Type \t\t BasePrice");
+                foreach (var item in models)
+                {
+                    Console.WriteLine(item);
+                }
+                Console.ReadLine();
+                break;
+            case TableEnum.Extra:
+                var extras = extrasLogic.GetAll();
+                Console.WriteLine("ModelId \t ExtraId \t ExtraName \t Price");
+                foreach (var item in extras)
+                {
+                    Console.WriteLine(item);
+                }
+                Console.ReadLine();
+                break;
+        }
     }
 }

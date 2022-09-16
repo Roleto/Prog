@@ -21,7 +21,7 @@ namespace MainApp.Models.DBModels
 
         public override string ToString()
         {
-            return $"{BrandId} \t {ModelId} \t {ModelName} \t {Type} \t {BasePrice}";
+            return $"{BrandId} \t\t {ModelId} \t\t {ModelName} \t {Type} \t {BasePrice}";
         }
     }
 }
