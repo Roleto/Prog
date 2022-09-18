@@ -10,9 +10,9 @@ namespace MainApp.Repository.Class
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
-        protected BikeDbContext ctx;
+        protected StrongholdDbContext ctx;
 
-        protected Repository(BikeDbContext ctx)
+        protected Repository(StrongholdDbContext ctx)
         {
             this.ctx = ctx;
         }

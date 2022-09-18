@@ -10,7 +10,7 @@ namespace MainApp.Models.DBModels
 {
     public class StrongholdDbContext : DbContext
     {
-        public DbSet<Warehouse> Warehouse { get; set; }
+        public DbSet<Blacksmith> Warehouse { get; set; }
 
         public DbSet<Blacksmith> Blacksmith { get; set; }
 
@@ -35,38 +35,38 @@ namespace MainApp.Models.DBModels
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Warehouse>();
+            modelBuilder.Entity<Blacksmith>();
 
             modelBuilder.Entity<Blacksmith>(bl => bl
-            .HasOne<Warehouse>()
+            .HasOne<Blacksmith>()
             .WithMany()
             .HasForeignKey(warehouese => warehouese.MaterialId)
             .OnDelete(DeleteBehavior.Cascade));
 
             modelBuilder.Entity<Generalstore>(gs => gs
-            .HasOne<Warehouse>()
+            .HasOne<Blacksmith>()
             .WithMany()
             .HasForeignKey(warehouese => warehouese.MaterialId)
             .OnDelete(DeleteBehavior.Cascade));
 
             modelBuilder.Entity<Recepies>(recepie => recepie
-            .HasOne<Warehouse>()
+            .HasOne<Blacksmith>()
             .WithMany()
             .HasForeignKey(warehouse => warehouse.MaterialId)
             .OnDelete(DeleteBehavior.Cascade));
 
-            modelBuilder.Entity<Warehouse>().HasData(new Warehouse[]
+            modelBuilder.Entity<WareHouse>().HasData(new WareHouse[]
             {
                 // Id;Name;MaterialType;Price;Quantity
-                new Warehouse("1;Wheet;Food;10;1000"),
-                new Warehouse("2;Iron;Ore;1000;10"),
-                new Warehouse("3;Wood;Resource;100;100"),
-                new Warehouse("4;Stone;Resource;10;100"),
-                new Warehouse("5;Bronze;Ore;1100;80"),
-                new Warehouse("6;Silver;Ore;1500;50"),
-                new Warehouse("7;Gold;Ore;2000;25"),
-                new Warehouse("8;Apple;Food;15;100"),
-                new Warehouse("9;Meat;Food;15;100"),
+                new WareHouse("1;Wheet;Food;10;1000"),
+                new WareHouse("2;Iron;Ore;1000;10"),
+                new WareHouse("3;Wood;Resource;100;100"),
+                new WareHouse("4;Stone;Resource;10;100"),
+                new WareHouse("5;Bronze;Ore;1100;80"),
+                new WareHouse("6;Silver;Ore;1500;50"),
+                new WareHouse("7;Gold;Ore;2000;25"),
+                new WareHouse("8;Apple;Food;15;100"),
+                new WareHouse("9;Meat;Food;15;100"),
             });
             modelBuilder.Entity<Blacksmith>().HasData(new Blacksmith[]
             {

@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace MainApp.Models.DBModels
 {
-    public class Warehouse
+    public class WareHouse
     {
-        public Warehouse()
+        public WareHouse()
         {
 
         }
 
-        public Warehouse(string line)
+        public WareHouse(string line)
         {
             string[] help = line.Split(';');
             Id = int.Parse(help[0]);
