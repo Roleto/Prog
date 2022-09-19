@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace MainApp.Repository.Class
 {
-    public class WarehouseRepository : Repository<Blacksmith>, IRepository<Blacksmith>
+    public class WarehouseRepository : Repository<WareHouse>, IRepository<WareHouse>
     {
         public WarehouseRepository(StrongholdDbContext ctx) : base(ctx)
         {
         }
 
-        public override Blacksmith Read(int id)
+        public override WareHouse Read(int id)
         {
             return this.ctx.Warehouse.FirstOrDefault(x => x.Id == id);
         }
 
-        public override void Update(Blacksmith newEntity)
+        public override void Update(WareHouse newEntity)
         {
             var oldWarehouse = Read(newEntity.Id);
             foreach (var item in oldWarehouse.GetType().GetProperties())

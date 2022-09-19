@@ -19,7 +19,7 @@ namespace MainApp.Logic.Classes
 
         public void Create(Recepies newEntity)
         {
-            var recepie = this.repo.GetAll().FirstOrDefault(x => x.Name.ToLower() == newEntity.Name.ToLower());
+            var recepie = this.repo.GetAll().FirstOrDefault(x => x.RecepieName.ToLower() == newEntity.RecepieName.ToLower());
 
             if (recepie != null)
                 throw new ArgumentException("This Item is alredy in the database");

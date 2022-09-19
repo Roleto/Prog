@@ -40,7 +40,8 @@ namespace MainApp.Models.DBModels
 
         [Range(1, 10)]
         public int Quality { get; set; }
-
+        
+        [NotMapped]
         public double Price { get => GetPrice(); }
 
         private double GetPrice()

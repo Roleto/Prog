@@ -10,7 +10,7 @@ namespace MainApp.Models.DBModels
 {
     public class StrongholdDbContext : DbContext
     {
-        public DbSet<Blacksmith> Warehouse { get; set; }
+        public DbSet<WareHouse> Warehouse { get; set; }
 
         public DbSet<Blacksmith> Blacksmith { get; set; }
 
@@ -35,7 +35,7 @@ namespace MainApp.Models.DBModels
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Blacksmith>();
+            modelBuilder.Entity<WareHouse>();
 
             modelBuilder.Entity<Blacksmith>(bl => bl
             .HasOne<Blacksmith>()

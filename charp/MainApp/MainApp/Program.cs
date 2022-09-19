@@ -6,52 +6,63 @@ using MainApp.Repository.Class;
 
 internal class Program
 {
-    static BrandLogic brandLogic;
-    static ModelLogic modelLogic;
-    static ExtrasLogic extrasLogic;
+    static WarehouseLogic wareLogic;
+    static BlacksmithLogic smithLogic;
+    static GeneralstoreLogic storeLogic;
+    static RecepieLogic recepieLogic;
     enum TableEnum
     {
-        Brand,
-        Model,
-        Extra
+        Warehouse,
+        Blacksmith,
+        Generalstore,
+        Recepie
     }
     private static void Main(string[] args)
     {
-        BikeDbContext ctx = new BikeDbContext();
+        StrongholdDbContext ctx = new StrongholdDbContext();
 
-        BrandRepository brandRepository = new BrandRepository(ctx);
-        ModelRepository modelRepository = new ModelRepository(ctx);
-        ExtrasRepository extrasRepository = new ExtrasRepository(ctx);
+        WarehouseRepository wareRepository = new WarehouseRepository(ctx);
+        BlacksmithRepository smithRepository = new BlacksmithRepository(ctx);
+        GeneralstoreRepository storeRepository = new GeneralstoreRepository(ctx);
+        RecepieRepository recepieRepository = new RecepieRepository(ctx);
 
-        brandLogic = new BrandLogic(brandRepository);
-        modelLogic = new ModelLogic(modelRepository); 
-        extrasLogic = new ExtrasLogic(extrasRepository);
+        wareLogic = new WarehouseLogic(wareRepository); 
+        smithLogic = new BlacksmithLogic(smithRepository); 
+        storeLogic = new GeneralstoreLogic(storeRepository);
+        recepieLogic = new RecepieLogic(recepieRepository);
 
-        ConsoleMenu brandSubMenu = new ConsoleMenu(args, 1)
-            .Add("List", () => List(TableEnum.Brand))
-            .Add("Add", () => Add(TableEnum.Brand))
-            .Add("Update", () => Update(TableEnum.Brand))
-            .Add("Delete", () => Delete(TableEnum.Brand))
+        ConsoleMenu wareSubMenu = new ConsoleMenu(args, 1)
+            .Add("List", () => List(TableEnum.Warehouse, true))
+            .Add("Add", () => Add(TableEnum.Warehouse))
+            .Add("Update", () => Update(TableEnum.Warehouse))
+            .Add("Delete", () => Delete(TableEnum.Warehouse))
             .Add("Back", ConsoleMenu.Close);
 
-        ConsoleMenu modelSubMenu = new ConsoleMenu(args, 1)
-            .Add("List", () => List(TableEnum.Model))
-            .Add("Add", () => Add(TableEnum.Model))
-            .Add("Update", () => Update(TableEnum.Model))
-            .Add("Delete", () => Delete(TableEnum.Model))
+        ConsoleMenu smithSubMenu = new ConsoleMenu(args, 1)
+            .Add("List", () => List(TableEnum.Blacksmith,true))
+            .Add("Add", () => Add(TableEnum.Blacksmith))
+            .Add("Update", () => Update(TableEnum.Blacksmith))
+            .Add("Delete", () => Delete(TableEnum.Blacksmith))
             .Add("Back", ConsoleMenu.Close);
 
-        ConsoleMenu extraSubMenu = new ConsoleMenu(args, 1)
-            .Add("List", () => List(TableEnum.Extra))
-            .Add("Add", () => Add(TableEnum.Extra))
-            .Add("Update", () => Update(TableEnum.Extra))
-            .Add("Delete", () => Delete(TableEnum.Extra))
+        ConsoleMenu storeSubMenu = new ConsoleMenu(args, 1)
+            .Add("List", () => List(TableEnum.Generalstore,true))
+            .Add("Add", () => Add(TableEnum.Generalstore))
+            .Add("Update", () => Update(TableEnum.Generalstore))
+            .Add("Delete", () => Delete(TableEnum.Generalstore))
+            .Add("Back", ConsoleMenu.Close);
+        ConsoleMenu recepieSubMenu = new ConsoleMenu(args, 1)
+            .Add("List", () => List(TableEnum.Recepie,true))
+            .Add("Add", () => Add(TableEnum.Recepie))
+            .Add("Update", () => Update(TableEnum.Recepie))
+            .Add("Delete", () => Delete(TableEnum.Recepie))
             .Add("Back", ConsoleMenu.Close);
 
         ConsoleMenu menu = new ConsoleMenu(args, 0)
-            .Add("Brand", () => brandSubMenu.Show())
-            .Add("Model", () => modelSubMenu.Show())
-            .Add("Extra", () => extraSubMenu.Show())
+            .Add("WareHouse", () => wareSubMenu.Show())
+            .Add("Blacksmith", () => smithSubMenu.Show())
+            .Add("Generalstore", () => storeSubMenu.Show())
+            .Add("Recepie", () => recepieSubMenu.Show())
             .Add("Exit", ConsoleMenu.Close);
 
         menu.Show();
@@ -59,18 +70,33 @@ internal class Program
 
     private static void Delete(TableEnum myEnum)
     {
+        int id = 0;
         switch (myEnum)
-        {
+        { 
             default:
-            case TableEnum.Brand:
-                Console.WriteLine("Delete data from BrandTable.");
+            case TableEnum.Warehouse:
+                Console.WriteLine("Delete data from Warehouse table.");
                 Console.Write("Id:");
-                int id = int.Parse(Console.ReadLine());
-                brandLogic.Delete(id);
+                id = int.Parse(Console.ReadLine());
+                wareLogic.Delete(id);
                 break;
-            case TableEnum.Model:
+            case TableEnum.Blacksmith:
+                Console.WriteLine("Delete data from Blacksmith table.");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                smithLogic.Delete(id);
                 break;
-            case TableEnum.Extra:
+            case TableEnum.Generalstore:
+                Console.WriteLine("Delete data from Generalstore table.");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                storeLogic.Delete(id);
+                break;
+            case TableEnum.Recepie:
+                Console.WriteLine("Delete data from Recepie table.");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                recepieLogic.Delete(id);
                 break;
         }
     }
@@ -81,64 +107,78 @@ internal class Program
         switch (myEnum)
         {
             default:
-            case TableEnum.Brand:
-                Console.WriteLine("Updtating data to BrandTable.");
-                var brands = brandLogic.GetAll();
-                Console.WriteLine("Id \t BrandName");
-                foreach (var item in brands)
-                {
-                    Console.WriteLine(item);
-                }
+            case TableEnum.Warehouse:
+                Console.WriteLine("Updtating data to Warehouse.");
+                List(myEnum, false);
                 Console.WriteLine("Which data you want to modify");
                 Console.Write("Id:");
                 id = int.Parse(Console.ReadLine());
-                var newBrand = brandLogic.Read(id);
-                Console.Write("new BrandName:");
-                newBrand.BrandName = Console.ReadLine();
-                brandLogic.Update(newBrand);
+                var newWare = wareLogic.Read(id);
+                Console.Write("new material name: ");
+                newWare.Name = Console.ReadLine();
+                Console.Write("new Materialtype: ");
+                newWare.MaterialType = Console.ReadLine();
+                Console.Write("new price: ");
+                newWare.Price = int.Parse(Console.ReadLine());
+                Console.Write("new quantity: ");
+                newWare.Quantity = int.Parse(Console.ReadLine());
+                wareLogic.Update(newWare);
                 break;
-            case TableEnum.Model:
-                var models = modelLogic.GetAll();
-                Console.WriteLine("Updtating data to ModelTable.");
-                Console.WriteLine("BrandId \t ModelId \t ModelName \t Type \t\t BasePrice");
-                foreach (var item in models)
-                {
-                    Console.WriteLine(item);
-                }
+            case TableEnum.Blacksmith:
+                Console.WriteLine("Updtating data to Blacksmith table.");
+                List(myEnum, false);
                 Console.WriteLine("Which data you want to modify");
                 Console.Write("Id:");
                 id = int.Parse(Console.ReadLine());
-                var newModel = modelLogic.Read(id);
-                Console.Write("new BrandId:");
-                newModel.BrandId = int.Parse(Console.ReadLine());
-                Console.Write("new ModelName:");
-                newModel.ModelName = Console.ReadLine();
-                Console.Write("new Type:");
-                newModel.Type = Console.ReadLine();
-                Console.Write("new BasePrice:");
-                newModel.BasePrice = int.Parse(Console.ReadLine());
-                modelLogic.Update(newModel);
+                var newSmith = smithLogic.Read(id);
+                Console.Write("new Id:");
+                newSmith.Id = int.Parse(Console.ReadLine());
+                Console.Write("new MaterialId:");
+                newSmith.MaterialId = int.Parse(Console.ReadLine());
+                Console.Write("new Name:");
+                newSmith.Name = Console.ReadLine();
+                Console.Write("Is dameged?: ");
+                newSmith.Damaged = bool.Parse(Console.ReadLine());
+                Console.Write("new Price: ");
+                newSmith.BasePrice = int.Parse(Console.ReadLine());
+                Console.Write("new Quality: ");
+                newSmith.Quality = int.Parse(Console.ReadLine());
+                smithLogic.Update(newSmith);
 
                 break;
-            case TableEnum.Extra:
-                var extras = extrasLogic.GetAll();
-                Console.WriteLine("Updtating data to ExtraTable.");
-                Console.WriteLine("ModelId \t ExtraId \t ExtraName \t Price");
-                foreach (var item in extras)
-                {
-                    Console.WriteLine(item);
-                }
+            case TableEnum.Generalstore:
+                Console.WriteLine("Updtating data to Generalstore.");
+                List(myEnum, false);
                 Console.WriteLine("Which data you want to modify");
                 Console.Write("Id:");
                 id = int.Parse(Console.ReadLine());
-                var newExtra = extrasLogic.Read(id);
-                Console.Write("new ModelId:");
-                newExtra.ModelId = int.Parse(Console.ReadLine());
-                Console.Write("new ExtraName:");
-                newExtra.Name = Console.ReadLine();
+                var newStore = storeLogic.Read(id);
+                Console.Write("new MaterialId:");
+                newStore.MaterialId = int.Parse(Console.ReadLine());
+                Console.Write("new item Name:");
+                newStore.Name = Console.ReadLine();
                 Console.Write("new Price:");
-                newExtra.Price = int.Parse(Console.ReadLine());
-                extrasLogic.Update(newExtra);
+                newStore.Price = int.Parse(Console.ReadLine());
+                Console.Write("new Quality:");
+                newStore.Quality = int.Parse(Console.ReadLine());
+                Console.Write("new Exparing date(if it not expereing then write null):");
+                newStore.ExpiringDate = int.Parse(Console.ReadLine());
+                storeLogic.Update(newStore);
+                break;
+            case TableEnum.Recepie:
+                Console.WriteLine("Updtating data to Recepie table.");
+                List(myEnum, false);
+                Console.WriteLine("Which data you want to modify");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                var newRecepie = recepieLogic.Read(id);
+                Console.Write("new recepie name: ");
+                newRecepie.RecepieName = Console.ReadLine();
+                Console.Write("new MaterialId: ");
+                newRecepie.MaterialId = int.Parse(Console.ReadLine());
+                Console.Write("new quantity: ");
+                newRecepie.MaterialQuantity = int.Parse(Console.ReadLine());
+                recepieLogic.Update(newRecepie);
                 break;
         }
     }
@@ -147,21 +187,64 @@ internal class Program
     {
         try
         {
-
             switch (myEnum)
             {
                 default:
-                case TableEnum.Brand:
-                    Console.WriteLine("Adding data to BrandTable.");
-                    Console.Write("BrandName:");
-                    string brandName = Console.ReadLine();
-                    brandLogic.Create(new Brand(brandName));
+                case TableEnum.Warehouse:
+                    Console.WriteLine("Adding data to Warehouse table.");
+                    var newWare = new WareHouse();
+                    Console.Write("new material name: ");
+                    newWare.Name = Console.ReadLine();
+                    Console.Write("new Materialtype: ");
+                    newWare.MaterialType = Console.ReadLine();
+                    Console.Write("new price: ");
+                    newWare.Price = int.Parse(Console.ReadLine());
+                    Console.Write("new quantity: ");
+                    newWare.Quantity = int.Parse(Console.ReadLine());
+                    wareLogic.Create(newWare);
                     break;
-                case TableEnum.Model:
+                case TableEnum.Blacksmith:
+                    Console.WriteLine("Adding data to Blacksmith table.");
+                    var newSmith = new Blacksmith();
+                    Console.Write("new MaterialId:");
+                    newSmith.MaterialId = int.Parse(Console.ReadLine());
+                    Console.Write("new Name:");
+                    newSmith.Name = Console.ReadLine();
+                    Console.Write("Is dameged?: ");
+                    newSmith.Damaged = bool.Parse(Console.ReadLine());
+                    Console.Write("new Price: ");
+                    newSmith.BasePrice = int.Parse(Console.ReadLine());
+                    Console.Write("new Quality: ");
+                    newSmith.Quality = int.Parse(Console.ReadLine());
+                    smithLogic.Create(newSmith);
                     break;
-                case TableEnum.Extra:
+                case TableEnum.Generalstore:
+                    Console.WriteLine("Adding data to Generalstore table.");
+                    var newStore = new Generalstore();
+                    Console.Write("new MaterialId:");
+                    newStore.MaterialId = int.Parse(Console.ReadLine());
+                    Console.Write("new item Name:");
+                    newStore.Name = Console.ReadLine();
+                    Console.Write("new Price:");
+                    newStore.Price = int.Parse(Console.ReadLine());
+                    Console.Write("new Quality:");
+                    newStore.Quality = int.Parse(Console.ReadLine());
+                    Console.Write("new Exparing date(if it not expereing then write null):");
+                    newStore.ExpiringDate = int.Parse(Console.ReadLine());
+                    storeLogic.Create(newStore);
                     break;
-            }
+                case TableEnum.Recepie:
+                    Console.WriteLine("Adding data to Recepie table.");
+                    var newRecepie = new Recepies();
+                    Console.Write("new recepie name: ");
+                    newRecepie.RecepieName = Console.ReadLine();
+                    Console.Write("new MaterialId: ");
+                    newRecepie.MaterialId = int.Parse(Console.ReadLine());
+                    Console.Write("new quantity: ");
+                    newRecepie.MaterialQuantity = int.Parse(Console.ReadLine());
+                    recepieLogic.Create(newRecepie);
+                    break;
+            } 
         }
         catch (ArgumentException e)
         {
@@ -170,38 +253,45 @@ internal class Program
         }
     }
 
-    private static void List(TableEnum myEnum)
+    private static void List(TableEnum myEnum, bool waitForInput)
     {
         switch (myEnum)
         {
             default:
-            case TableEnum.Brand:
-                var brands = brandLogic.GetAll();
-                Console.WriteLine("Id \t BrandName");
-                foreach (var item in brands)
+            case TableEnum.Warehouse:
+                var wares = wareLogic.GetAll();
+                Console.WriteLine("Id \t Name \t MaterialType \t Price \t Quantity");
+                foreach (var item in wares)
                 {
                     Console.WriteLine(item);
                 }
-                Console.ReadLine();
                 break;
-            case TableEnum.Model:
-                var models = modelLogic.GetAll();
-                Console.WriteLine("BrandId \t ModelId \t ModelName \t Type \t\t BasePrice");
-                foreach (var item in models)
+            case TableEnum.Blacksmith:
+                var smiths = smithLogic.GetAll();
+                Console.WriteLine("Id \t MaterialId \t Name \t Damaged \t Quality");
+                foreach (var item in smiths)
                 {
                     Console.WriteLine(item);
                 }
-                Console.ReadLine();
                 break;
-            case TableEnum.Extra:
-                var extras = extrasLogic.GetAll();
-                Console.WriteLine("ModelId \t ExtraId \t ExtraName \t Price");
-                foreach (var item in extras)
+            case TableEnum.Generalstore:
+                var stores = storeLogic.GetAll();
+                Console.WriteLine("Id \t MaterialId \t Name \t Price \t Quality \t ExpiringDate");
+                foreach (var item in stores)
                 {
                     Console.WriteLine(item);
                 }
-                Console.ReadLine();
+                break;
+            case TableEnum.Recepie:
+                var recepies = recepieLogic.GetAll();
+                Console.WriteLine("RecepieId \t RecepieName \t MaterialId \t MaterialQuantity");
+                foreach (var item in recepies)
+                {
+                    Console.WriteLine(item);
+                }
                 break;
         }
+        if (waitForInput)
+            Console.ReadLine();
     }
 }
