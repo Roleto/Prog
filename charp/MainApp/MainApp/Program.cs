@@ -229,8 +229,12 @@ internal class Program
                     newStore.Price = int.Parse(Console.ReadLine());
                     Console.Write("new Quality:");
                     newStore.Quality = int.Parse(Console.ReadLine());
-                    Console.Write("new Exparing date(if it not expereing then write null):");
-                    newStore.ExpiringDate = int.Parse(Console.ReadLine());
+                    Console.Write("new Exparing date(if it not expereing then press enter):");
+                    int expDate;
+                    if (int.TryParse(Console.ReadLine(), out expDate))
+                        newStore.ExpiringDate = expDate;
+                    else
+                        newStore.ExpiringDate = null;
                     storeLogic.Create(newStore);
                     break;
                 case TableEnum.Recepie:
@@ -276,7 +280,7 @@ internal class Program
                 break;
             case TableEnum.Generalstore:
                 var stores = storeLogic.GetAll();
-                Console.WriteLine("Id \t MaterialId \t Name \t Price \t Quality \t ExpiringDate");
+                Console.WriteLine("Id \t MaterialId \t Name \t\t Price \t Quality \t ExpiringDate");
                 foreach (var item in stores)
                 {
                     Console.WriteLine(item);

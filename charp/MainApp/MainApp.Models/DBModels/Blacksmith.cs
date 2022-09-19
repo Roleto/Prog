@@ -64,7 +64,7 @@ namespace MainApp.Models.DBModels
 
         public override string ToString()
         {
-            return $"{Id} \t {MaterialId} \t {Name} \t {Damaged} \t {BasePrice} \t {Quality}";
+            return $"{Id} \t {MaterialId} \t\t {Name} \t {Damaged} \t {BasePrice} \t {Quality}";
         }
     }
 }

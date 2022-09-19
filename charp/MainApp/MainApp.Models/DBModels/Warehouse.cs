@@ -46,7 +46,15 @@ namespace MainApp.Models.DBModels
 
         public override string ToString()
         {
-            return $"{Id} \t {Name} \t {MaterialType} \t {Price} \t {Quantity}";
+            int matlenght = MaterialType.Length;
+            int namelenght = Name.Length;
+            if(matlenght < 8 && namelenght < 6)
+                return $"{Id} \t {Name} \t {MaterialType} \t\t {Price} \t {Quantity}";
+            else if(namelenght < 6)
+                return $"{Id} \t {Name} \t {MaterialType} \t {Price} \t {Quantity}";
+            else
+                return $"{Id} \t {Name}  {MaterialType}  \t\t {Price} \t {Quantity}";
+
         }
     }
 }

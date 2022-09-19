@@ -24,8 +24,11 @@ namespace MainApp.Models.DBModels
             Price = int.Parse(help[3]);
             Quality = int.Parse(help[4]);
             int tryhelp;
-            if(int.TryParse(help[5], out tryhelp))
+            if (int.TryParse(help[5], out tryhelp))
                 ExpiringDate = tryhelp;
+            else
+                ExpiringDate = null;
+                
         }
 
         [Key]
@@ -43,11 +46,14 @@ namespace MainApp.Models.DBModels
         public int Quality { get; set; }
 
         [AllowNull]
-        public int ExpiringDate{ get; set; }
+        public int? ExpiringDate{ get; set; }
 
         public override string ToString()
         {
-            return $"{Id} \t {MaterialId} \t {Name} \t {Price} \t {Quality} \t {ExpiringDate}";
+            if (ExpiringDate == null)
+                return $"{Id} \t {MaterialId} \t\t {Name} \t\t {Price} \t {Quality} \t -----";
+            else
+                return $"{Id} \t {MaterialId} \t\t {Name} \t\t {Price} \t {Quality} \t {ExpiringDate}";
         }
     }
 }
