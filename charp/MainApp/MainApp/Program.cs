@@ -56,35 +56,35 @@ internal class Program
 
     private static void Delete(TableEnum myEnum)
     {
-        //int id = 0;
-        //switch (myEnum)
-        //{ 
-        //    default:
-        //    case TableEnum.Warehouse:
-        //        Console.WriteLine("Delete data from Warehouse table.");
-        //        Console.Write("Id:");
-        //        id = int.Parse(Console.ReadLine());
-        //        wareLogic.Delete(id);
-        //        break;
-        //    case TableEnum.Blacksmith:
-        //        Console.WriteLine("Delete data from Blacksmith table.");
-        //        Console.Write("Id:");
-        //        id = int.Parse(Console.ReadLine());
-        //        smithLogic.Delete(id);
-        //        break;
-        //    case TableEnum.Generalstore:
-        //        Console.WriteLine("Delete data from Generalstore table.");
-        //        Console.Write("Id:");
-        //        id = int.Parse(Console.ReadLine());
-        //        storeLogic.Delete(id);
-        //        break;
-        //    case TableEnum.Recepie:
-        //        Console.WriteLine("Delete data from Recepie table.");
-        //        Console.Write("Id:");
-        //        id = int.Parse(Console.ReadLine());
-        //        recepieLogic.Delete(id);
-        //        break;
-        //}
+        int id = 0;
+        switch (myEnum)
+        {
+            default:
+            case TableEnum.Warehouse:
+                Console.WriteLine("Delete data from Warehouse table.");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                rest.Delete(id, nameof(WareHouse));
+                break;
+            case TableEnum.Blacksmith:
+                Console.WriteLine("Delete data from Blacksmith table.");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                rest.Delete(id, nameof(Blacksmith));
+                break;
+            case TableEnum.Generalstore:
+                Console.WriteLine("Delete data from Generalstore table.");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                rest.Delete(id, nameof(Generalstore));
+                break;
+            case TableEnum.Recepie:
+                Console.WriteLine("Delete data from Recepie table.");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                rest.Delete(id, nameof(Recepies));
+                break;
+        }
     }
 
     private static void Update(TableEnum myEnum)
