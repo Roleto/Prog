@@ -89,84 +89,84 @@ internal class Program
 
     private static void Update(TableEnum myEnum)
     {
-        //int id = 0;
-        //switch (myEnum)
-        //{
-        //    default:
-        //    case TableEnum.Warehouse:
-        //        Console.WriteLine("Updtating data to Warehouse.");
-        //        List(myEnum, false);
-        //        Console.WriteLine("Which data you want to modify");
-        //        Console.Write("Id:");
-        //        id = int.Parse(Console.ReadLine());
-        //        var newWare = wareLogic.Read(id);
-        //        Console.Write("new material name: ");
-        //        newWare.Name = Console.ReadLine();
-        //        Console.Write("new Materialtype: ");
-        //        newWare.MaterialType = Console.ReadLine();
-        //        Console.Write("new price: ");
-        //        newWare.Price = int.Parse(Console.ReadLine());
-        //        Console.Write("new quantity: ");
-        //        newWare.Quantity = int.Parse(Console.ReadLine());
-        //        wareLogic.Update(newWare);
-        //        break;
-        //    case TableEnum.Blacksmith:
-        //        Console.WriteLine("Updtating data to Blacksmith table.");
-        //        List(myEnum, false);
-        //        Console.WriteLine("Which data you want to modify");
-        //        Console.Write("Id:");
-        //        id = int.Parse(Console.ReadLine());
-        //        var newSmith = smithLogic.Read(id);
-        //        Console.Write("new Id:");
-        //        newSmith.Id = int.Parse(Console.ReadLine());
-        //        Console.Write("new MaterialId:");
-        //        newSmith.MaterialId = int.Parse(Console.ReadLine());
-        //        Console.Write("new Name:");
-        //        newSmith.Name = Console.ReadLine();
-        //        Console.Write("Is dameged?: ");
-        //        newSmith.Damaged = bool.Parse(Console.ReadLine());
-        //        Console.Write("new Price: ");
-        //        newSmith.BasePrice = int.Parse(Console.ReadLine());
-        //        Console.Write("new Quality: ");
-        //        newSmith.Quality = int.Parse(Console.ReadLine());
-        //        smithLogic.Update(newSmith);
+        int id = 0;
+        switch (myEnum)
+        {
+            default:
+            case TableEnum.Warehouse:
+                Console.WriteLine("Updtating data to Warehouse.");
+                List(myEnum, false);
+                Console.WriteLine("Which data you want to modify");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                WareHouse newWare = rest.Get<WareHouse>(id, "warehouse");
+                Console.Write("new material name: ");
+                newWare.Name = Console.ReadLine();
+                Console.Write("new Materialtype: ");
+                newWare.MaterialType = Console.ReadLine();
+                Console.Write("new price: ");
+                newWare.Price = int.Parse(Console.ReadLine());
+                Console.Write("new quantity: ");
+                newWare.Quantity = int.Parse(Console.ReadLine());
+                rest.Put(newWare, nameof(WareHouse));
+                break;
+            case TableEnum.Blacksmith:
+                Console.WriteLine("Updtating data to Blacksmith table.");
+                List(myEnum, false);
+                Console.WriteLine("Which data you want to modify");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                Blacksmith newSmith = rest.Get<Blacksmith>(id, "blacksmith");
+                Console.Write("new Id:");
+                newSmith.Id = int.Parse(Console.ReadLine());
+                Console.Write("new MaterialId:");
+                newSmith.MaterialId = int.Parse(Console.ReadLine());
+                Console.Write("new Name:");
+                newSmith.Name = Console.ReadLine();
+                Console.Write("Is dameged?: ");
+                newSmith.Damaged = bool.Parse(Console.ReadLine());
+                Console.Write("new Price: ");
+                newSmith.BasePrice = int.Parse(Console.ReadLine());
+                Console.Write("new Quality: ");
+                newSmith.Quality = int.Parse(Console.ReadLine());
+                rest.Put(newSmith, nameof(Blacksmith));
 
-        //        break;
-        //    case TableEnum.Generalstore:
-        //        Console.WriteLine("Updtating data to Generalstore.");
-        //        List(myEnum, false);
-        //        Console.WriteLine("Which data you want to modify");
-        //        Console.Write("Id:");
-        //        id = int.Parse(Console.ReadLine());
-        //        var newStore = storeLogic.Read(id);
-        //        Console.Write("new MaterialId:");
-        //        newStore.MaterialId = int.Parse(Console.ReadLine());
-        //        Console.Write("new item Name:");
-        //        newStore.Name = Console.ReadLine();
-        //        Console.Write("new Price:");
-        //        newStore.Price = int.Parse(Console.ReadLine());
-        //        Console.Write("new Quality:");
-        //        newStore.Quality = int.Parse(Console.ReadLine());
-        //        Console.Write("new Exparing date(if it not expereing then write null):");
-        //        newStore.ExpiringDate = int.Parse(Console.ReadLine());
-        //        storeLogic.Update(newStore);
-        //        break;
-        //    case TableEnum.Recepie:
-        //        Console.WriteLine("Updtating data to Recepie table.");
-        //        List(myEnum, false);
-        //        Console.WriteLine("Which data you want to modify");
-        //        Console.Write("Id:");
-        //        id = int.Parse(Console.ReadLine());
-        //        var newRecepie = recepieLogic.Read(id);
-        //        Console.Write("new recepie name: ");
-        //        newRecepie.RecepieName = Console.ReadLine();
-        //        Console.Write("new MaterialId: ");
-        //        newRecepie.MaterialId = int.Parse(Console.ReadLine());
-        //        Console.Write("new quantity: ");
-        //        newRecepie.MaterialQuantity = int.Parse(Console.ReadLine());
-        //        recepieLogic.Update(newRecepie);
-        //        break;
-        //}
+                break;
+            case TableEnum.Generalstore:
+                Console.WriteLine("Updtating data to Generalstore.");
+                List(myEnum, false);
+                Console.WriteLine("Which data you want to modify");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                Generalstore newStore = rest.Get<Generalstore>(id, "generalstore");
+                Console.Write("new MaterialId:");
+                newStore.MaterialId = int.Parse(Console.ReadLine());
+                Console.Write("new item Name:");
+                newStore.Name = Console.ReadLine();
+                Console.Write("new Price:");
+                newStore.Price = int.Parse(Console.ReadLine());
+                Console.Write("new Quality:");
+                newStore.Quality = int.Parse(Console.ReadLine());
+                Console.Write("new Exparing date(if it not expereing then write null):");
+                newStore.ExpiringDate = int.Parse(Console.ReadLine());
+                rest.Put(newStore, nameof(Generalstore));
+                break;
+            case TableEnum.Recepie:
+                Console.WriteLine("Updtating data to Recepie table.");
+                List(myEnum, false);
+                Console.WriteLine("Which data you want to modify");
+                Console.Write("Id:");
+                id = int.Parse(Console.ReadLine());
+                Recepies newRecepie = rest.Get<Recepies>(id, "Recepies");
+                Console.Write("new recepie name: ");
+                newRecepie.RecepieName = Console.ReadLine();
+                Console.Write("new MaterialId: ");
+                newRecepie.MaterialId = int.Parse(Console.ReadLine());
+                Console.Write("new quantity: ");
+                newRecepie.MaterialQuantity = int.Parse(Console.ReadLine());
+                rest.Put(newRecepie, nameof(Recepies));
+                break;
+        }
     }
 
     private static void Add(TableEnum myEnum)
@@ -187,7 +187,7 @@ internal class Program
                     newWare.Price = int.Parse(Console.ReadLine());
                     Console.Write("new quantity: ");
                     newWare.Quantity = int.Parse(Console.ReadLine());
-                    rest.Post(newWare, "warehouse");
+                    rest.Post(newWare, nameof(WareHouse));
                     break;
                 case TableEnum.Blacksmith:
                     Console.WriteLine("Adding data to Blacksmith table.");
@@ -202,7 +202,7 @@ internal class Program
                     newSmith.BasePrice = int.Parse(Console.ReadLine());
                     Console.Write("new Quality: ");
                     newSmith.Quality = int.Parse(Console.ReadLine());
-                    rest.Post(newSmith, "blacksmith");
+                    rest.Post(newSmith, nameof(Blacksmith));
                     break;
                 case TableEnum.Generalstore:
                     Console.WriteLine("Adding data to Generalstore table.");
@@ -221,7 +221,7 @@ internal class Program
                         newStore.ExpiringDate = expDate;
                     else
                         newStore.ExpiringDate = null;
-                    rest.Post(newStore, "generalstore");
+                    rest.Post(newStore, nameof(Generalstore));
                     break;
                 case TableEnum.Recepie:
                     Console.WriteLine("Adding data to Recepie table.");
@@ -232,7 +232,7 @@ internal class Program
                     newRecepie.MaterialId = int.Parse(Console.ReadLine());
                     Console.Write("new quantity: ");
                     newRecepie.MaterialQuantity = int.Parse(Console.ReadLine());
-                    rest.Post(newRecepie, "Recepie");
+                    rest.Post(newRecepie, nameof(Recepies));
                     break;
             }
         }
@@ -251,7 +251,7 @@ internal class Program
             {
                 default:
                 case TableEnum.Warehouse:
-                    List<WareHouse> wares = rest.Get<WareHouse>("warehouse");
+                    List<WareHouse> wares = rest.Get<WareHouse>(nameof(WareHouse));
                     Console.WriteLine("Id \t Name \t MaterialType \t Price \t Quantity");
                     foreach (var item in wares)
                     {
@@ -259,7 +259,7 @@ internal class Program
                     }
                     break;
                 case TableEnum.Blacksmith:
-                    List<Blacksmith> smiths = rest.Get<Blacksmith>("blacksmith");
+                    List<Blacksmith> smiths = rest.Get<Blacksmith>(nameof(Blacksmith));
                     Console.WriteLine("Id \t MaterialId \t Name \t Damaged \t Quality");
                     foreach (var item in smiths)
                     {
@@ -267,7 +267,7 @@ internal class Program
                     }
                     break;
                 case TableEnum.Generalstore:
-                    List<Generalstore> stores = rest.Get<Generalstore>("generalstore");
+                    List<Generalstore> stores = rest.Get<Generalstore>(nameof(Generalstore));
                     Console.WriteLine("Id \t MaterialId \t Name \t\t Price \t Quality \t ExpiringDate");
                     foreach (var item in stores)
                     {
@@ -275,7 +275,7 @@ internal class Program
                     }
                     break;
                 case TableEnum.Recepie:
-                    List<Recepies> recepies = rest.Get<Recepies>("recepie");
+                    List<Recepies> recepies = rest.Get<Recepies>(nameof(Recepies));
                     Console.WriteLine("RecepieId \t RecepieName \t MaterialId \t MaterialQuantity");
                     foreach (var item in recepies)
                     {
