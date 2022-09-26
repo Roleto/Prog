@@ -277,6 +277,7 @@ internal class Program
                 {
                     Console.WriteLine(item);
                 }
+                ;
                 break;
             case TableEnum.Generalstore:
                 var stores = storeLogic.GetAll();
