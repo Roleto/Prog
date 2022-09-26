@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace MainApp.Models.DBModels
 {
-    public class Recepies
+    public class Recepie
     {
-        public Recepies()
+        public Recepie()
         {
 
         }
 
-        public Recepies(string line)
+        public Recepie(string line)
         {
             string[] help = line.Split(';');
             RecepieId = int.Parse(help[0]);

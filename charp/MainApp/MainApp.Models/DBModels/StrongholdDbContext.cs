@@ -16,7 +16,7 @@ namespace MainApp.Models.DBModels
 
         public DbSet<Generalstore> Generalstore { get; set; }
 
-        public DbSet<Recepies> Recepies { get; set; }
+        public DbSet<Recepie> Recepies { get; set; }
 
         public StrongholdDbContext()
         {
@@ -49,7 +49,7 @@ namespace MainApp.Models.DBModels
             .HasForeignKey(warehouese => warehouese.MaterialId)
             .OnDelete(DeleteBehavior.Cascade));
 
-            modelBuilder.Entity<Recepies>(recepie => recepie
+            modelBuilder.Entity<Recepie>(recepie => recepie
             .HasOne<Blacksmith>()
             .WithMany()
             .HasForeignKey(warehouse => warehouse.MaterialId)
@@ -96,22 +96,22 @@ namespace MainApp.Models.DBModels
                 new Generalstore("9;9;Beef Stew;100;8;2"),
                 new Generalstore("10;9;Beef Jerky;60;9;10")
             });
-            modelBuilder.Entity<Recepies>().HasData(new Recepies[]
+            modelBuilder.Entity<Recepie>().HasData(new Recepie[]
             {
                 // RecepieId;RecepieName;MaterialId;MaterialQuatity
-                new Recepies("1;Bread;1;3"),
-                new Recepies("2;Barrel;3;5"),
-                new Recepies("3;Wall;4;6"),
-                new Recepies("4;ApplePie;8;5"),
-                new Recepies("5;Beef Jerky;9;1"),
-                new Recepies("6;Beef Stew;9;5"),
-                new Recepies("7;Ham;9;5"),
-                new Recepies("8;Iron Sword;2;2"),
-                new Recepies("9;Bronze Sword;5;3"),
-                new Recepies("10;Silver Necklance;6;3"),
-                new Recepies("11;Silver Ring;6;1"),
-                new Recepies("12;Golden Necklance;7;3"),
-                new Recepies("13;Golden Ring;7;1"),
+                new Recepie("1;Bread;1;3"),
+                new Recepie("2;Barrel;3;5"),
+                new Recepie("3;Wall;4;6"),
+                new Recepie("4;ApplePie;8;5"),
+                new Recepie("5;Beef Jerky;9;1"),
+                new Recepie("6;Beef Stew;9;5"),
+                new Recepie("7;Ham;9;5"),
+                new Recepie("8;Iron Sword;2;2"),
+                new Recepie("9;Bronze Sword;5;3"),
+                new Recepie("10;Silver Necklance;6;3"),
+                new Recepie("11;Silver Ring;6;1"),
+                new Recepie("12;Golden Necklance;7;3"),
+                new Recepie("13;Golden Ring;7;1"),
             });
         }
     }

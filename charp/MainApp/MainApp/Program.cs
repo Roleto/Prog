@@ -82,7 +82,7 @@ internal class Program
                 Console.WriteLine("Delete data from Recepie table.");
                 Console.Write("Id:");
                 id = int.Parse(Console.ReadLine());
-                rest.Delete(id, nameof(Recepies));
+                rest.Delete(id, nameof(Recepie));
                 break;
         }
     }
@@ -117,8 +117,6 @@ internal class Program
                 Console.Write("Id:");
                 id = int.Parse(Console.ReadLine());
                 Blacksmith newSmith = rest.Get<Blacksmith>(id, "blacksmith");
-                Console.Write("new Id:");
-                newSmith.Id = int.Parse(Console.ReadLine());
                 Console.Write("new MaterialId:");
                 newSmith.MaterialId = int.Parse(Console.ReadLine());
                 Console.Write("new Name:");
@@ -157,14 +155,14 @@ internal class Program
                 Console.WriteLine("Which data you want to modify");
                 Console.Write("Id:");
                 id = int.Parse(Console.ReadLine());
-                Recepies newRecepie = rest.Get<Recepies>(id, "Recepies");
+                Recepie newRecepie = rest.Get<Recepie>(id, nameof(Recepie));
                 Console.Write("new recepie name: ");
                 newRecepie.RecepieName = Console.ReadLine();
                 Console.Write("new MaterialId: ");
                 newRecepie.MaterialId = int.Parse(Console.ReadLine());
                 Console.Write("new quantity: ");
                 newRecepie.MaterialQuantity = int.Parse(Console.ReadLine());
-                rest.Put(newRecepie, nameof(Recepies));
+                rest.Put(newRecepie, nameof(Recepie));
                 break;
         }
     }
@@ -225,14 +223,14 @@ internal class Program
                     break;
                 case TableEnum.Recepie:
                     Console.WriteLine("Adding data to Recepie table.");
-                    Recepies newRecepie = new Recepies();
+                    Recepie newRecepie = new Recepie();
                     Console.Write("new recepie name: ");
                     newRecepie.RecepieName = Console.ReadLine();
                     Console.Write("new MaterialId: ");
                     newRecepie.MaterialId = int.Parse(Console.ReadLine());
                     Console.Write("new quantity: ");
                     newRecepie.MaterialQuantity = int.Parse(Console.ReadLine());
-                    rest.Post(newRecepie, nameof(Recepies));
+                    rest.Post(newRecepie, nameof(Recepie));
                     break;
             }
         }
@@ -275,7 +273,7 @@ internal class Program
                     }
                     break;
                 case TableEnum.Recepie:
-                    List<Recepies> recepies = rest.Get<Recepies>(nameof(Recepies));
+                    List<Recepie> recepies = rest.Get<Recepie>(nameof(Recepie));
                     Console.WriteLine("RecepieId \t RecepieName \t MaterialId \t MaterialQuantity");
                     foreach (var item in recepies)
                     {

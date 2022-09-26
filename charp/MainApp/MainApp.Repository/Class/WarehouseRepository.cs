@@ -22,9 +22,12 @@ namespace MainApp.Repository.Class
         public override void Update(WareHouse newEntity)
         {
             var oldWarehouse = Read(newEntity.Id);
-            foreach (var item in oldWarehouse.GetType().GetProperties())
+            foreach (var prop in oldWarehouse.GetType().GetProperties())
             {
-                item.SetValue(oldWarehouse, item.GetValue(newEntity));
+                if (prop.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    prop.SetValue(oldWarehouse, prop.GetValue(newEntity));
+                }
             }
             this.ctx.SaveChanges();
         }

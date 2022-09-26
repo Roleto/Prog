@@ -17,25 +17,25 @@ namespace MainApp.Endpoint.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Recepies> GetAll()
+        public IEnumerable<Recepie> GetAll()
         {
             return this.logic.GetAll();
         }
 
         [HttpGet("{id}")]
-        public Recepies Get(int id)
+        public Recepie Get(int id)
         {
             return this.logic.Read(id);
         }
 
         [HttpPost]
-        public void Create([FromBody] Recepies value)
+        public void Create([FromBody] Recepie value)
         {
             this.logic.Create(value);
         }
 
         [HttpPut]
-        public void Update([FromBody] Recepies value)
+        public void Update([FromBody] Recepie value)
         {
             this.logic.Update(value);
         }

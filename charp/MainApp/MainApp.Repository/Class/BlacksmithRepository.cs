@@ -21,10 +21,13 @@ namespace MainApp.Repository.Class
 
         public override void Update(Blacksmith newEntity)
         {
-            var oldBlacksmith = Read(newEntity.Id);
-            foreach (var item in oldBlacksmith.GetType().GetProperties())
+            Blacksmith oldBlacksmith = Read(newEntity.Id);
+            foreach (var prop in oldBlacksmith.GetType().GetProperties())
             {
-                item.SetValue(oldBlacksmith, item.GetValue(newEntity));
+                if (prop.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    prop.SetValue(oldBlacksmith, prop.GetValue(newEntity));
+                }
             }
             this.ctx.SaveChanges();
         }

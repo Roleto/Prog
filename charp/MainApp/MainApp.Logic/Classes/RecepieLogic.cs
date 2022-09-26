@@ -11,14 +11,14 @@ namespace MainApp.Logic.Classes
 {
     public class RecepieLogic : IRecepieLogic
     {
-        IRepository<Recepies> repo;
+        IRepository<Recepie> repo;
 
-        public RecepieLogic(IRepository<Recepies> repo)
+        public RecepieLogic(IRepository<Recepie> repo)
         {
             this.repo = repo;
         }
 
-        public void Create(Recepies newEntity)
+        public void Create(Recepie newEntity)
         {
             var recepie = repo.GetAll().FirstOrDefault(x => x.RecepieName.ToLower() == newEntity.RecepieName.ToLower());
 
@@ -28,7 +28,7 @@ namespace MainApp.Logic.Classes
             repo.Create(newEntity);
         }
 
-        public Recepies Read(int id)
+        public Recepie Read(int id)
         {
             var recepie = repo.Read(id);
 
@@ -38,7 +38,7 @@ namespace MainApp.Logic.Classes
             return recepie;
         }
 
-        public void Update(Recepies newEntity)
+        public void Update(Recepie newEntity)
         {
             repo.Update(newEntity);
         }
@@ -47,7 +47,7 @@ namespace MainApp.Logic.Classes
             repo.Delete(Read(id));
         }
 
-        public IEnumerable<Recepies> GetAll()
+        public IEnumerable<Recepie> GetAll()
         {
             return repo.GetAll();
         }
