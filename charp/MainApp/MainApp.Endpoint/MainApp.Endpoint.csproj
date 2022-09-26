@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MainApp.Logic\MainApp.Logic.csproj" />
     <ProjectReference Include="..\MainApp.Models\MainApp.Models.csproj" />
     <ProjectReference Include="..\MainApp.Repository\MainApp.Repository.csproj" />

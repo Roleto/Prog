@@ -1,4 +1,5 @@
-﻿using MainApp.Models.DBModels;
+﻿using MainApp.Logic.Interfaces;
+using MainApp.Models.DBModels;
 using MainApp.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MainApp.Logic.Classes
 {
-    public class RecepieLogic
+    public class RecepieLogic : IRecepieLogic
     {
         IRepository<Recepies> repo;
 
@@ -19,17 +20,17 @@ namespace MainApp.Logic.Classes
 
         public void Create(Recepies newEntity)
         {
-            var recepie = this.repo.GetAll().FirstOrDefault(x => x.RecepieName.ToLower() == newEntity.RecepieName.ToLower());
+            var recepie = repo.GetAll().FirstOrDefault(x => x.RecepieName.ToLower() == newEntity.RecepieName.ToLower());
 
             if (recepie != null)
                 throw new ArgumentException("This Item is alredy in the database");
 
-            this.repo.Create(newEntity);
+            repo.Create(newEntity);
         }
 
         public Recepies Read(int id)
         {
-            var recepie = this.repo.Read(id);
+            var recepie = repo.Read(id);
 
             if (recepie == null)
                 throw new ArgumentException("This item is not exists.");
@@ -39,16 +40,16 @@ namespace MainApp.Logic.Classes
 
         public void Update(Recepies newEntity)
         {
-            this.repo.Update(newEntity);
+            repo.Update(newEntity);
         }
         public void Delete(int id)
         {
-            this.repo.Delete(Read(id));
+            repo.Delete(Read(id));
         }
 
         public IEnumerable<Recepies> GetAll()
         {
-            return this.repo.GetAll();
+            return repo.GetAll();
         }
     }
 }

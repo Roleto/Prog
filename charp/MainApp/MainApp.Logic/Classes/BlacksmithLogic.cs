@@ -1,4 +1,5 @@
-﻿using MainApp.Models.DBModels;
+﻿using MainApp.Logic.Interfaces;
+using MainApp.Models.DBModels;
 using MainApp.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MainApp.Logic.Classes
 {
-    public class BlacksmithLogic
+    public class BlacksmithLogic : IBlacksmithLogic
     {
 
         IRepository<Blacksmith> repo;
