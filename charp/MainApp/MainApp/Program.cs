@@ -171,117 +171,126 @@ internal class Program
 
     private static void Add(TableEnum myEnum)
     {
-        //    try
-        //    {
-        //        switch (myEnum)
-        //        {
-        //            default:
-        //            case TableEnum.Warehouse:
-        //                Console.WriteLine("Adding data to Warehouse table.");
-        //                var newWare = new WareHouse();
-        //                Console.Write("new material name: ");
-        //                newWare.Name = Console.ReadLine();
-        //                Console.Write("new Materialtype: ");
-        //                newWare.MaterialType = Console.ReadLine();
-        //                Console.Write("new price: ");
-        //                newWare.Price = int.Parse(Console.ReadLine());
-        //                Console.Write("new quantity: ");
-        //                newWare.Quantity = int.Parse(Console.ReadLine());
-        //                wareLogic.Create(newWare);
-        //                break;
-        //            case TableEnum.Blacksmith:
-        //                Console.WriteLine("Adding data to Blacksmith table.");
-        //                var newSmith = new Blacksmith();
-        //                Console.Write("new MaterialId:");
-        //                newSmith.MaterialId = int.Parse(Console.ReadLine());
-        //                Console.Write("new Name:");
-        //                newSmith.Name = Console.ReadLine();
-        //                Console.Write("Is dameged?: ");
-        //                newSmith.Damaged = bool.Parse(Console.ReadLine());
-        //                Console.Write("new Price: ");
-        //                newSmith.BasePrice = int.Parse(Console.ReadLine());
-        //                Console.Write("new Quality: ");
-        //                newSmith.Quality = int.Parse(Console.ReadLine());
-        //                smithLogic.Create(newSmith);
-        //                break;
-        //            case TableEnum.Generalstore:
-        //                Console.WriteLine("Adding data to Generalstore table.");
-        //                var newStore = new Generalstore();
-        //                Console.Write("new MaterialId:");
-        //                newStore.MaterialId = int.Parse(Console.ReadLine());
-        //                Console.Write("new item Name:");
-        //                newStore.Name = Console.ReadLine();
-        //                Console.Write("new Price:");
-        //                newStore.Price = int.Parse(Console.ReadLine());
-        //                Console.Write("new Quality:");
-        //                newStore.Quality = int.Parse(Console.ReadLine());
-        //                Console.Write("new Exparing date(if it not expereing then press enter):");
-        //                int expDate;
-        //                if (int.TryParse(Console.ReadLine(), out expDate))
-        //                    newStore.ExpiringDate = expDate;
-        //                else
-        //                    newStore.ExpiringDate = null;
-        //                storeLogic.Create(newStore);
-        //                break;
-        //            case TableEnum.Recepie:
-        //                Console.WriteLine("Adding data to Recepie table.");
-        //                var newRecepie = new Recepies();
-        //                Console.Write("new recepie name: ");
-        //                newRecepie.RecepieName = Console.ReadLine();
-        //                Console.Write("new MaterialId: ");
-        //                newRecepie.MaterialId = int.Parse(Console.ReadLine());
-        //                Console.Write("new quantity: ");
-        //                newRecepie.MaterialQuantity = int.Parse(Console.ReadLine());
-        //                recepieLogic.Create(newRecepie);
-        //                break;
-        //        } 
-        //}
-        //catch (ArgumentException e)
-        //{
-        //    Console.WriteLine(e.Message);
-        //    Console.ReadLine();
-        //}
+        try
+        {
+            switch (myEnum)
+            {
+                default:
+                case TableEnum.Warehouse:
+                    Console.WriteLine("Adding data to Warehouse table.");
+                    WareHouse newWare = new WareHouse();
+                    Console.Write("new material name: ");
+                    newWare.Name = Console.ReadLine();
+                    Console.Write("new Materialtype: ");
+                    newWare.MaterialType = Console.ReadLine();
+                    Console.Write("new price: ");
+                    newWare.Price = int.Parse(Console.ReadLine());
+                    Console.Write("new quantity: ");
+                    newWare.Quantity = int.Parse(Console.ReadLine());
+                    rest.Post(newWare, "warehouse");
+                    break;
+                case TableEnum.Blacksmith:
+                    Console.WriteLine("Adding data to Blacksmith table.");
+                    Blacksmith newSmith = new Blacksmith();
+                    Console.Write("new MaterialId:");
+                    newSmith.MaterialId = int.Parse(Console.ReadLine());
+                    Console.Write("new Name:");
+                    newSmith.Name = Console.ReadLine();
+                    Console.Write("Is dameged?: ");
+                    newSmith.Damaged = bool.Parse(Console.ReadLine());
+                    Console.Write("new Price: ");
+                    newSmith.BasePrice = int.Parse(Console.ReadLine());
+                    Console.Write("new Quality: ");
+                    newSmith.Quality = int.Parse(Console.ReadLine());
+                    rest.Post(newSmith, "blacksmith");
+                    break;
+                case TableEnum.Generalstore:
+                    Console.WriteLine("Adding data to Generalstore table.");
+                    Generalstore newStore = new Generalstore();
+                    Console.Write("new MaterialId:");
+                    newStore.MaterialId = int.Parse(Console.ReadLine());
+                    Console.Write("new item Name:");
+                    newStore.Name = Console.ReadLine();
+                    Console.Write("new Price:");
+                    newStore.Price = int.Parse(Console.ReadLine());
+                    Console.Write("new Quality:");
+                    newStore.Quality = int.Parse(Console.ReadLine());
+                    Console.Write("new Exparing date(if it not expereing then press enter):");
+                    int expDate;
+                    if (int.TryParse(Console.ReadLine(), out expDate))
+                        newStore.ExpiringDate = expDate;
+                    else
+                        newStore.ExpiringDate = null;
+                    rest.Post(newStore, "generalstore");
+                    break;
+                case TableEnum.Recepie:
+                    Console.WriteLine("Adding data to Recepie table.");
+                    Recepies newRecepie = new Recepies();
+                    Console.Write("new recepie name: ");
+                    newRecepie.RecepieName = Console.ReadLine();
+                    Console.Write("new MaterialId: ");
+                    newRecepie.MaterialId = int.Parse(Console.ReadLine());
+                    Console.Write("new quantity: ");
+                    newRecepie.MaterialQuantity = int.Parse(Console.ReadLine());
+                    rest.Post(newRecepie, "Recepie");
+                    break;
+            }
+        }
+        catch (ArgumentException e)
+        {
+            Console.WriteLine(e.Message);
+            Console.ReadLine();
+        }
     }
 
     private static void List(TableEnum myEnum, bool waitForInput)
     {
-        switch (myEnum)
+        try
         {
-            default:
-            case TableEnum.Warehouse:
-                List<WareHouse> wares = rest.Get<WareHouse>("warehouse");
-                Console.WriteLine("Id \t Name \t MaterialType \t Price \t Quantity");
-                foreach (var item in wares)
-                {
-                    Console.WriteLine(item);
-                }
-                break;
-            case TableEnum.Blacksmith:
-                List<Blacksmith> smiths = rest.Get<Blacksmith>("blacksmith");
-                Console.WriteLine("Id \t MaterialId \t Name \t Damaged \t Quality");
-                foreach (var item in smiths)
-                {
-                    Console.WriteLine(item);
-                }
-                break;
-            case TableEnum.Generalstore:
-                List<Generalstore> stores = rest.Get<Generalstore>("generalstore");
-                Console.WriteLine("Id \t MaterialId \t Name \t\t Price \t Quality \t ExpiringDate");
-                foreach (var item in stores)
-                {
-                    Console.WriteLine(item);
-                }
-                break;
-            case TableEnum.Recepie:
-                List<Recepies> recepies = rest.Get<Recepies>("recepies");
-                Console.WriteLine("RecepieId \t RecepieName \t MaterialId \t MaterialQuantity");
-                foreach (var item in recepies)
-                {
-                    Console.WriteLine(item);
-                }
-                break;
+            switch (myEnum)
+            {
+                default:
+                case TableEnum.Warehouse:
+                    List<WareHouse> wares = rest.Get<WareHouse>("warehouse");
+                    Console.WriteLine("Id \t Name \t MaterialType \t Price \t Quantity");
+                    foreach (var item in wares)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    break;
+                case TableEnum.Blacksmith:
+                    List<Blacksmith> smiths = rest.Get<Blacksmith>("blacksmith");
+                    Console.WriteLine("Id \t MaterialId \t Name \t Damaged \t Quality");
+                    foreach (var item in smiths)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    break;
+                case TableEnum.Generalstore:
+                    List<Generalstore> stores = rest.Get<Generalstore>("generalstore");
+                    Console.WriteLine("Id \t MaterialId \t Name \t\t Price \t Quality \t ExpiringDate");
+                    foreach (var item in stores)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    break;
+                case TableEnum.Recepie:
+                    List<Recepies> recepies = rest.Get<Recepies>("recepie");
+                    Console.WriteLine("RecepieId \t RecepieName \t MaterialId \t MaterialQuantity");
+                    foreach (var item in recepies)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    break;
+            }
+            if (waitForInput)
+                Console.ReadLine();
         }
-        if (waitForInput)
+        catch (ArgumentException e)
+        {
+            Console.WriteLine(e.Message);
             Console.ReadLine();
+        }
     }
+
 }
