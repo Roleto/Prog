@@ -2,41 +2,41 @@
 using MainApp.Models.DBModels;
 using Microsoft.AspNetCore.Mvc;
 
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MainApp.Endpoint.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class WarehouseController : ControllerBase
+    public class BlacksmithController : ControllerBase
     {
+        IBlacksmithLogic logic;
 
-        IWarehouseLogic logic;
-
-        public WarehouseController(IWarehouseLogic logic)
+        public BlacksmithController(IBlacksmithLogic logic)
         {
             this.logic = logic;
         }
 
         [HttpGet]
-        public IEnumerable<WareHouse> ReadAll()
+        public IEnumerable<Blacksmith> GetAll()
         {
             return this.logic.GetAll();
-        } 
+        }
 
         [HttpGet("{id}")]
-        public WareHouse Read(int id)
+        public Blacksmith Read(int id)
         {
             return this.logic.Read(id);
         }
 
         [HttpPost]
-        public void Create([FromBody] WareHouse value)
+        public void Create([FromBody] Blacksmith value)
         {
             this.logic.Create(value);
         }
 
         [HttpPut]
-        public void Update([FromBody] WareHouse value)
+        public void Put([FromBody] Blacksmith value)
         {
             this.logic.Update(value);
         }

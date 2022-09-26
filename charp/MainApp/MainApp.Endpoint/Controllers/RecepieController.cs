@@ -7,36 +7,35 @@ namespace MainApp.Endpoint.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class WarehouseController : ControllerBase
+    public class RecepieController : ControllerBase
     {
+        IRecepieLogic logic;
 
-        IWarehouseLogic logic;
-
-        public WarehouseController(IWarehouseLogic logic)
+        public RecepieController(IRecepieLogic logic)
         {
             this.logic = logic;
         }
 
         [HttpGet]
-        public IEnumerable<WareHouse> ReadAll()
+        public IEnumerable<Recepies> GetAll()
         {
             return this.logic.GetAll();
-        } 
+        }
 
         [HttpGet("{id}")]
-        public WareHouse Read(int id)
+        public Recepies Get(int id)
         {
             return this.logic.Read(id);
         }
 
         [HttpPost]
-        public void Create([FromBody] WareHouse value)
+        public void Create([FromBody] Recepies value)
         {
             this.logic.Create(value);
         }
 
         [HttpPut]
-        public void Update([FromBody] WareHouse value)
+        public void Update([FromBody] Recepies value)
         {
             this.logic.Update(value);
         }

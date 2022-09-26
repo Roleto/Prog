@@ -9,12 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="ConsoleMenu-simple" Version="2.4.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MainApp.Logic\MainApp.Logic.csproj" />
     <ProjectReference Include="..\MainApp.Models\MainApp.Models.csproj" />
-    <ProjectReference Include="..\MainApp.Repository\MainApp.Repository.csproj" />
   </ItemGroup>
 
 </Project>
