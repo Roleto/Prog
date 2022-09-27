@@ -16,7 +16,6 @@ namespace MainApp.Repository.Class
         {
             this.ctx = ctx;
         }
-
         public void Create(T newEntity)
         {
             ctx.Set<T>().Add(newEntity);
@@ -36,6 +35,11 @@ namespace MainApp.Repository.Class
         public IQueryable<T> GetAll()
         {
             return ctx.Set<T>();
+        }
+
+        public StrongholdDbContext GetDbContext()
+        {
+            return this.ctx;
         }
     }
 }

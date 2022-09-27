@@ -1,6 +1,7 @@
 ﻿using MainApp.Logic.Interfaces;
 using MainApp.Models.DBModels;
 using MainApp.Repository.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,5 +53,30 @@ namespace MainApp.Logic.Classes
         {
             return this.repo.GetAll();
         }
+        // non crud
+
+        public IEnumerable<string> HowManyCreting(int materialid)
+        {
+            List<string> output = new List<string>();
+            var querry = from w in this.repo.GetDbContext().Warehouse
+                    from r in this.repo.GetDbContext().Recepies
+                    where w.Id == materialid && r.MaterialId == materialid
+                    select new
+                    {
+                        Name = w.Name,
+                        Recept = r.RecepieName,
+                        SumQuantity = w.Quantity,
+                        Quantity = w.Quantity / r.MaterialQuantity
+
+                    };
+           
+            foreach (var item in querry)
+            {
+                output.Add($"You have:{item.SumQuantity} {item.Name},and you can make {item.Quantity} {item.Recept}");
+            }
+
+            return output;
+        }
+
     }
 }

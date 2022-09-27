@@ -44,5 +44,6 @@ namespace MainApp.Models.DBModels
         {
             return $"{RecepieId} \t {RecepieName} \t {MaterialId} \t {MaterialQuantity}";
         }
+        
     }
 }

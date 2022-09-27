@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MainApp.Models.DBModels
@@ -13,10 +14,12 @@ namespace MainApp.Models.DBModels
     {
         public WareHouse()
         {
-
+            Blacksmiths = new HashSet<Blacksmith>();
+            Generalstores = new HashSet<Generalstore>();
+            Recepies = new HashSet<Recepie>();
         }
 
-        public WareHouse(string line)
+        public WareHouse(string line):this()
         {
             string[] help = line.Split(';');
             Id = int.Parse(help[0]);
@@ -25,7 +28,8 @@ namespace MainApp.Models.DBModels
             Price = int.Parse(help[3]);
             Quantity = int.Parse(help[4]);
         }
-
+        
+        
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -43,6 +47,12 @@ namespace MainApp.Models.DBModels
 
         [NotMapped]
         public int SumPrice { get => Quantity * Price; }
+        [JsonIgnore]
+        public virtual ICollection<Blacksmith> Blacksmiths { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Generalstore> Generalstores { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Recepie> Recepies { get; set; }
 
         public override string ToString()
         {
@@ -58,3 +68,4 @@ namespace MainApp.Models.DBModels
         }
     }
 }
+//Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True

@@ -9,5 +9,6 @@ namespace MainApp.Logic.Interfaces
         void Update(Blacksmith newEntity);
         void Delete(int id);
         IEnumerable<Blacksmith> GetAll();
+        public IEnumerable<string> HowManyCreting(int materialid);
     }
 }

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MainApp.Models.DBModels
@@ -12,10 +13,11 @@ namespace MainApp.Models.DBModels
     {
         public Blacksmith()
         {
-
+            WareHouse = new HashSet<WareHouse>();
+            Recepie = new HashSet<Recepie>();
         }
 
-        public Blacksmith(string line)
+        public Blacksmith(string line) : this()
         {
             string[] help = line.Split(';');
             Id = int.Parse(help[0]);
@@ -43,6 +45,11 @@ namespace MainApp.Models.DBModels
         
         [NotMapped]
         public double Price { get => GetPrice(); }
+
+        [JsonIgnore]
+        public virtual ICollection<WareHouse> WareHouse { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Recepie> Recepie { get; set; }
 
         private double GetPrice()
         {

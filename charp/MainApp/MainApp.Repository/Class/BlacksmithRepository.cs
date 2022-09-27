@@ -10,6 +10,7 @@ namespace MainApp.Repository.Class
 {
     public class BlacksmithRepository : Repository<Blacksmith>, IRepository<Blacksmith>
     {
+        
         public BlacksmithRepository(StrongholdDbContext ctx) : base(ctx)
         {
         }

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MainApp.Models.DBModels
@@ -13,9 +14,11 @@ namespace MainApp.Models.DBModels
     {
         public Generalstore()
         {
+            WareHouse = new HashSet<WareHouse>();
+            Recepie = new HashSet<Recepie>();
         }
 
-        public Generalstore(string line)
+        public Generalstore(string line):this()
         {
             string[] help = line.Split(';');
             Id = int.Parse(help[0]);
@@ -47,6 +50,11 @@ namespace MainApp.Models.DBModels
 
         [AllowNull]
         public int? ExpiringDate{ get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<WareHouse> WareHouse { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Recepie> Recepie { get; set; }
 
         public override string ToString()
         {

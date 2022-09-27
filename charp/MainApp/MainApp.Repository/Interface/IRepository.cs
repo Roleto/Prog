@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainApp.Models.DBModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ namespace MainApp.Repository.Interface
         void Delete(T Entity);
 
         IQueryable<T> GetAll();
+
+        StrongholdDbContext GetDbContext();
 
     }
 }
