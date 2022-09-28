@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MainApp.Logic.Classes
@@ -77,44 +79,55 @@ namespace MainApp.Logic.Classes
 
             return output;
         }
+       
 
-        public IEnumerable<string> WhatCanCreateCreting()
+        public IEnumerable<string> HowManyHave()
         {
             List<string> output = new List<string>();
 
-            var querry = from wares in this.repo.GetDbContext().Warehouse
-                         from recepies in this.repo.GetDbContext().Recepies
-                         from black in this.repo.GetAll()
-                         where wares.Id == recepies.MaterialId && black.Name == recepies.RecepieName
+            var querry = from x in this.repo.GetAll()
+                         group x by x.Name into g
                          select new
                          {
-                             Id = wares.Id,
-                             Name = recepies.RecepieName,
-                             Material = wares.Name,
-                             Quantity = wares.Quantity / recepies.MaterialQuantity
+                             Name = g.Key,
+                             Count = g.Count(),
+                             AvgQuality = g.Average(y=> y.Quality)
                          };
 
-            foreach (var item in querry)
+            foreach (var item in querry )
             {
-                Console.WriteLine($"{item.Id}, {item.Name}, {item.Material}, {item.Quantity}");
+                output.Add($"{item.Name}, {item.Count}, {item.AvgQuality}");
             }
-            Console.ReadLine();
+
             return output;
         }
 
         public IEnumerable<Blacksmith> BetterQuality(int Quality)
         {
-            throw new NotImplementedException();
+            return this.repo.GetAll().Where(x => x.Quality >= Quality);
         }
 
         public IEnumerable<Blacksmith> NeedToRepair()
         {
-            throw new NotImplementedException();
+            return this.repo.GetAll().Where(x => x.Damaged);
         }
 
         public IEnumerable<string> AvgItemPrices()
         {
-            throw new NotImplementedException();
+            var q = from x in this.repo.GetAll()
+                    .ToList()
+                    group x by x.Name into g
+                    select new AvgClass()
+                    {
+                        Name = g.Key,
+                        AvgPrice = g.Average(y => y.Price)
+                    };
+            List<string> output = new List<string>();
+            foreach (var item in q)
+            {
+                output.Add(item.Name);
+            }
+            return output;
         }
     }
 }

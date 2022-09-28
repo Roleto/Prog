@@ -35,6 +35,10 @@ internal class Program
             .Add("Update", () => Update(TableEnum.Blacksmith))
             .Add("Delete", () => Delete(TableEnum.Blacksmith))
             .Add("NonCrude1", () => NonCrude1(TableEnum.Blacksmith))
+            .Add("NonCrude2", () => NonCrude2(TableEnum.Blacksmith))
+            .Add("NonCrude3", () => NonCrude3(TableEnum.Blacksmith))
+            .Add("NonCrude4", () => NonCrude4(TableEnum.Blacksmith))
+            .Add("NonCrude5", () => NonCrude5(TableEnum.Blacksmith))
             .Add("Back", ConsoleMenu.Close);
 
         ConsoleMenu storeSubMenu = new ConsoleMenu(args, 1)
@@ -95,6 +99,7 @@ internal class Program
             case TableEnum.Warehouse:
                 break;
             case TableEnum.Blacksmith:
+                rest.Get<string>("NoneCrud/WhatCanCreateCreting");
                 break;
             case TableEnum.Generalstore:
                 break;
@@ -111,6 +116,39 @@ internal class Program
             case TableEnum.Warehouse:
                 break;
             case TableEnum.Blacksmith:
+                break;
+            case TableEnum.Generalstore:
+                break;
+            case TableEnum.Recepie:
+                break;
+        }
+    }
+
+    private static void NonCrude4(TableEnum myEnum)
+    {
+        switch (myEnum)
+        {
+            default:
+            case TableEnum.Warehouse:
+                break;
+            case TableEnum.Blacksmith:
+                break;
+            case TableEnum.Generalstore:
+                break;
+            case TableEnum.Recepie:
+                break;
+        }
+    }
+
+    private static void NonCrude5(TableEnum myEnum)
+    {
+        switch (myEnum)
+        {
+            default:
+            case TableEnum.Warehouse:
+                break;
+            case TableEnum.Blacksmith:
+                rest.Get<string>("NoneCrud/AvgItemPrices");
                 break;
             case TableEnum.Generalstore:
                 break;

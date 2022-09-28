@@ -23,9 +23,9 @@ namespace MainApp.Endpoint.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<string> WhatCanCreateCreting()
+        public IEnumerable<string> HowManyHave()
         {
-            return this.blacksmithLogic.WhatCanCreateCreting();
+            return this.blacksmithLogic.HowManyHave();
         }
         
         [HttpGet("Quality")]
