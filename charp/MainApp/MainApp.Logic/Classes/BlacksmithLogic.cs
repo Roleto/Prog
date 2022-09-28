@@ -78,5 +78,28 @@ namespace MainApp.Logic.Classes
             return output;
         }
 
+        public IEnumerable<string> WhatCanCreateCreting()
+        {
+            List<string> output = new List<string>();
+
+
+
+            return output;
+        }
+
+        public IEnumerable<Blacksmith> BetterQuality(int Quality)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Blacksmith> NeedToRepair()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<string> AvgItemPrices()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

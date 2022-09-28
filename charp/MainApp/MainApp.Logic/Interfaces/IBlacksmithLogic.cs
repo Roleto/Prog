@@ -10,5 +10,9 @@ namespace MainApp.Logic.Interfaces
         void Delete(int id);
         IEnumerable<Blacksmith> GetAll();
         public IEnumerable<string> HowManyCreting(int materialid);
+        public IEnumerable<string> WhatCanCreateCreting();
+        public IEnumerable<Blacksmith> BetterQuality(int Quality);
+        public IEnumerable<Blacksmith> NeedToRepair();
+        public IEnumerable<string> AvgItemPrices();
     }
 }
