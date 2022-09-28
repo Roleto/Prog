@@ -82,8 +82,23 @@ namespace MainApp.Logic.Classes
         {
             List<string> output = new List<string>();
 
+            var querry = from wares in this.repo.GetDbContext().Warehouse
+                         from recepies in this.repo.GetDbContext().Recepies
+                         from black in this.repo.GetAll()
+                         where wares.Id == recepies.MaterialId && black.Name == recepies.RecepieName
+                         select new
+                         {
+                             Id = wares.Id,
+                             Name = recepies.RecepieName,
+                             Material = wares.Name,
+                             Quantity = wares.Quantity / recepies.MaterialQuantity
+                         };
 
-
+            foreach (var item in querry)
+            {
+                Console.WriteLine($"{item.Id}, {item.Name}, {item.Material}, {item.Quantity}");
+            }
+            Console.ReadLine();
             return output;
         }
 

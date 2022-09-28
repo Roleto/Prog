@@ -87,6 +87,38 @@ internal class Program
         }
     }
 
+    private static void NonCrude2(TableEnum myEnum)
+    {
+        switch (myEnum)
+        {
+            default:
+            case TableEnum.Warehouse:
+                break;
+            case TableEnum.Blacksmith:
+                break;
+            case TableEnum.Generalstore:
+                break;
+            case TableEnum.Recepie:
+                break;
+        }
+    }
+
+    private static void NonCrude3(TableEnum myEnum)
+    {
+        switch (myEnum)
+        {
+            default:
+            case TableEnum.Warehouse:
+                break;
+            case TableEnum.Blacksmith:
+                break;
+            case TableEnum.Generalstore:
+                break;
+            case TableEnum.Recepie:
+                break;
+        }
+    }
+
     private static string GetApiString(string url, string itemNames, string itemValues)
     {
         string output = url;
