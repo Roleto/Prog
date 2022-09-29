@@ -117,7 +117,7 @@ namespace MainApp.Logic.Classes
             var q = from x in this.repo.GetAll()
                     .ToList()
                     group x by x.Name into g
-                    select new AvgClass()
+                    select new 
                     {
                         Name = g.Key,
                         AvgPrice = g.Average(y => y.Price)
@@ -125,7 +125,7 @@ namespace MainApp.Logic.Classes
             List<string> output = new List<string>();
             foreach (var item in q)
             {
-                output.Add(item.Name);
+                output.Add($"{item.Name}, {item.AvgPrice}");
             }
             return output;
         }

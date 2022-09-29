@@ -9,7 +9,7 @@ using System.Text;
 internal class Program
 {
     static RestService rest;
-    static string ApiRout = "NoneCrud/HowManyCreting/";
+    static string ApiRout = "NoneCrud/";
 
 
     enum TableEnum
@@ -34,11 +34,11 @@ internal class Program
             .Add("Add", () => Add(TableEnum.Blacksmith))
             .Add("Update", () => Update(TableEnum.Blacksmith))
             .Add("Delete", () => Delete(TableEnum.Blacksmith))
-            .Add("NonCrude1", () => NonCrude1(TableEnum.Blacksmith))
-            .Add("NonCrude2", () => NonCrude2(TableEnum.Blacksmith))
-            .Add("NonCrude3", () => NonCrude3(TableEnum.Blacksmith))
-            .Add("NonCrude4", () => NonCrude4(TableEnum.Blacksmith))
-            .Add("NonCrude5", () => NonCrude5(TableEnum.Blacksmith))
+            .Add("How many item can creat", () => NonCrude1(TableEnum.Blacksmith))
+            .Add("How many items there are", () => NonCrude2(TableEnum.Blacksmith))
+            .Add("Quality filter", () => NonCrude3(TableEnum.Blacksmith))
+            .Add("Items that need to repair", () => NonCrude4(TableEnum.Blacksmith))
+            .Add("Items avarege price", () => NonCrude5(TableEnum.Blacksmith))
             .Add("Back", ConsoleMenu.Close);
 
         ConsoleMenu storeSubMenu = new ConsoleMenu(args, 1)
@@ -74,21 +74,23 @@ internal class Program
             case TableEnum.Warehouse:
                 break;
             case TableEnum.Blacksmith:
-                int materialid = 9;
+                List(myEnum,false);
+                Console.Write("Give a material Id: ");
+                int materialid = int.Parse(Console.ReadLine());
                 //Console.WriteLine(rest.GetSingle<string>(GetApiString(ApiRout, "materialid#itemQuantity", $"{materialid}#{itemQuantity}")));
                 //Console.WriteLine(rest.GetSingle<string>("HowManyCreting/materialid, itemQuantity?materialid=1&itemQuantity=3"));
                 //foreach (string item in rest.Get<string>("NoneCrud/HowManyCreting/materialid?materialid=9"))
-                foreach (string item in rest.Get<string>(GetApiString(ApiRout, "materialid", $"{materialid}")))
+                foreach (string item in rest.Get<string>(GetApiString(ApiRout + "HowManyCreting/", "materialid", $"{materialid}")))
                 {
                     Console.WriteLine(item);
                 }
-                Console.ReadLine();
                 break;
             case TableEnum.Generalstore:
                 break;
             case TableEnum.Recepie:
                 break;
         }
+                Console.ReadLine();
     }
 
     private static void NonCrude2(TableEnum myEnum)
@@ -99,13 +101,18 @@ internal class Program
             case TableEnum.Warehouse:
                 break;
             case TableEnum.Blacksmith:
-                rest.Get<string>("NoneCrud/WhatCanCreateCreting");
+                Console.WriteLine("this is the item you have(name/quantity/avg_quality)");
+                foreach (string item in rest.Get<string>("NoneCrud/HowManyHave"))
+                {
+                    Console.WriteLine(item);
+                }
                 break;
             case TableEnum.Generalstore:
                 break;
             case TableEnum.Recepie:
                 break;
         }
+                Console.ReadLine();
     }
 
     private static void NonCrude3(TableEnum myEnum)
@@ -116,12 +123,19 @@ internal class Program
             case TableEnum.Warehouse:
                 break;
             case TableEnum.Blacksmith:
+                Console.Write("Quality:");
+                int quality = int.Parse(Console.ReadLine());
+                foreach (Blacksmith item in rest.Get<Blacksmith>(GetApiString(ApiRout+ "BetterQuality/", "quality", $"{quality}")))
+                {
+                    Console.WriteLine(item);
+                }
                 break;
             case TableEnum.Generalstore:
                 break;
             case TableEnum.Recepie:
                 break;
         }
+                Console.ReadLine();
     }
 
     private static void NonCrude4(TableEnum myEnum)
@@ -132,12 +146,18 @@ internal class Program
             case TableEnum.Warehouse:
                 break;
             case TableEnum.Blacksmith:
+                Console.WriteLine("This items need to repair:");
+                foreach (Blacksmith item in rest.Get<Blacksmith>("NoneCrud/NeedToRepair"))
+                {
+                    Console.WriteLine(item);
+                }
                 break;
             case TableEnum.Generalstore:
                 break;
             case TableEnum.Recepie:
                 break;
         }
+                Console.ReadLine();
     }
 
     private static void NonCrude5(TableEnum myEnum)
@@ -148,13 +168,18 @@ internal class Program
             case TableEnum.Warehouse:
                 break;
             case TableEnum.Blacksmith:
-                rest.Get<string>("NoneCrud/AvgItemPrices");
+                Console.WriteLine("This items have in blacksmith(name/avg_price)");
+                foreach (string item in rest.Get<string>("NoneCrud/AvgItemPrices"))
+                {
+                    Console.WriteLine(item);
+                }
                 break;
             case TableEnum.Generalstore:
                 break;
             case TableEnum.Recepie:
                 break;
         }
+        Console.ReadLine();
     }
 
     private static string GetApiString(string url, string itemNames, string itemValues)
@@ -164,7 +189,7 @@ internal class Program
         string[] values = itemValues.Split('#');
         if (names.Length < 1 || values.Length<1)
         {
-            throw new ArgumentException("Item names or vlues not has data");
+            throw new ArgumentException("Item names or values not has data");
         }
         else if(names.Length == 1)
         {

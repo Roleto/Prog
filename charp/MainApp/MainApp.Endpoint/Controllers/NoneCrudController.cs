@@ -28,10 +28,10 @@ namespace MainApp.Endpoint.Controllers
             return this.blacksmithLogic.HowManyHave();
         }
         
-        [HttpGet("Quality")]
-        public IEnumerable<Blacksmith> BetterQuality(int Quality)
+        [HttpGet("quality")]
+        public IEnumerable<Blacksmith> BetterQuality(int quality)
         {
-            return this.blacksmithLogic.BetterQuality(Quality);
+            return this.blacksmithLogic.BetterQuality(quality);
         }
 
         [HttpGet]
