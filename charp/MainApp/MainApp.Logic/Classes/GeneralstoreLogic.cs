@@ -73,9 +73,9 @@ namespace MainApp.Logic.Classes
                         };
         }
 
-        public IEnumerable<Blacksmith> CloseToExpiring(int daysToExpire)
+        public IEnumerable<Generalstore> CloseToExpiring(int daysToExpire)
         {
-            throw new NotImplementedException();
+            return this.repo.GetAll().Where(x=>x.ExpiringDate != null && x.ExpiringDate - daysToExpire <= 0);
         }
 
         public IEnumerable<string> HowManyItem()

@@ -23,7 +23,7 @@ namespace MainApp.Endpoint.Controllers
         }
 
         [HttpGet("materialid")]
-        public IEnumerable<Blacksmith> CloseToExpiring(int daysToExpire)
+        public IEnumerable<Generalstore> CloseToExpiring(int daysToExpire)
         {
             return this.generalstoreLogic.CloseToExpiring(daysToExpire);
         }

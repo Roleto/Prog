@@ -11,7 +11,7 @@ namespace MainApp.Logic.Interfaces
         IEnumerable<Generalstore> GetAll();
 
         public IEnumerable<Recepie> WhatCanCreate(int materialId);
-        public IEnumerable<Blacksmith> CloseToExpiring(int daysToExpire);
+        public IEnumerable<Generalstore> CloseToExpiring(int daysToExpire);
         public IEnumerable<string> HowManyItem();
         public IEnumerable<Blacksmith> DiscontPrice();
         public IEnumerable<Blacksmith> BetterQuality(int quality);
