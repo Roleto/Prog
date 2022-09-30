@@ -22,7 +22,7 @@ namespace MainApp.Endpoint.Controllers
             return generalstoreLogic.WhatCanCreate(materialId);
         }
 
-        [HttpGet("materialid")]
+        [HttpGet("daysToExpire")]
         public IEnumerable<Generalstore> CloseToExpiring(int daysToExpire)
         {
             return this.generalstoreLogic.CloseToExpiring(daysToExpire);
@@ -31,26 +31,18 @@ namespace MainApp.Endpoint.Controllers
         [HttpGet]
         public IEnumerable<string> HowManyItem()
         {
-            try
-            {
+
             return this.generalstoreLogic.HowManyItem();
-
-            }
-            catch (ArgumentException e)
-            {
-
-                return new List<string>() { e.Message };
-            }
         }
 
         [HttpGet]
-        public IEnumerable<Blacksmith> DiscontPrice()
+        public IEnumerable<Generalstore> DiscontPrice()
         {
             return this.generalstoreLogic.DiscontPrice();
         }
 
         [HttpGet("quality")]
-        public IEnumerable<Blacksmith> BetterQuality(int quality)
+        public IEnumerable<Generalstore> BetterQuality(int quality)
         {
             return this.generalstoreLogic.BetterQuality(quality);
         }

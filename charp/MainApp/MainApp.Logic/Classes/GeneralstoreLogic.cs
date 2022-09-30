@@ -83,12 +83,21 @@ namespace MainApp.Logic.Classes
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Blacksmith> DiscontPrice()
+        public IEnumerable<Generalstore> DiscontPrice()
         {
-            throw new NotImplementedException();
+            return this.repo.GetAll().Where(x => x.ExpiringDate != null && x.ExpiringDate <= 7)
+                .Select(x => new Generalstore()
+                {
+                    Id = x.Id,
+                    MaterialId=x.MaterialId,
+                    Name = x.Name,
+                    ExpiringDate = x.ExpiringDate,
+                    Price = x.Price * 0.75,
+                    Quality = x.Quality,
+                });
         }
 
-        public IEnumerable<Blacksmith> BetterQuality(int quality)
+        public IEnumerable<Generalstore> BetterQuality(int quality)
         {
             throw new NotImplementedException();
         }

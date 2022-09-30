@@ -53,7 +53,7 @@ namespace MainApp.Models.DBModels
         [StringLength(240)]
         public string Name { get; set; }
 
-        public int Price { get; set; }
+        public double Price { get; set; }
 
         [Range(1, 10)]
         public int Quality { get; set; }
