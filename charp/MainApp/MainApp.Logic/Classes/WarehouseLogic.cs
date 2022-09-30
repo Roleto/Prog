@@ -51,5 +51,30 @@ namespace MainApp.Logic.Classes
         {
             return this.repo.GetAll();
         }
+
+        public IEnumerable<Blacksmith> WHatCanCreateTheBlacksmith()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Generalstore> WHatCanCreateTheGeneralStorte()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Recepie> RecepieWithMaterail(int materialId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double? AvgQantity()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<string> MaterialTypes()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

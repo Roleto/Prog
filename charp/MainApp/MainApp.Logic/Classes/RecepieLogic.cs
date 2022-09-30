@@ -51,5 +51,25 @@ namespace MainApp.Logic.Classes
         {
             return repo.GetAll();
         }
+
+        public IEnumerable<string> WhatIsMissing()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<string> WhatCanCreate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void HowManyCanCreate(int recepieId, int quantity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WhatCanCreate(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -3,6 +3,8 @@ using MainApp.Logic.Interfaces;
 using MainApp.Models.DBModels;
 using MainApp.Repository.Class;
 using MainApp.Repository.Interface;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +36,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseExceptionHandler(c => c.Run(async context =>
+{
+    var exeption = context.Features
+        .Get<IExceptionHandlerPathFeature>()
+        .Error;
+    var response = new { Msg = exeption.Message };
+    await context.Response.WriteAsJsonAsync(response);
+}));
+app.UseRouting();
 
 app.UseAuthorization();
 

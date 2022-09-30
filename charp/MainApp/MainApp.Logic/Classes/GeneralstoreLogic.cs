@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MainApp.Logic.Classes
@@ -53,6 +54,43 @@ namespace MainApp.Logic.Classes
             return this.repo.GetAll();
         }
 
-       
+        public IEnumerable<Recepie> WhatCanCreate(int materialId)
+        {
+           
+                if(this.GetAll().FirstOrDefault(x=> x.MaterialId == materialId) == null)
+                        throw new ArgumentException("This MaterialId is not int the GeneralstoreTable.");
+
+            return from stores in this.repo.GetAll().ToList().GroupBy(x=> x.MaterialId)
+                        join recepies in this.repo.GetDbContext().Recepies
+                        on stores.Key equals recepies.MaterialId
+                        where stores.Key == materialId
+                        select new Recepie()
+                        {
+                            RecepieId = recepies.RecepieId,
+                            MaterialId = recepies.MaterialId,
+                            RecepieName = recepies.RecepieName,
+                            MaterialQuantity = recepies.MaterialQuantity
+                        };
+        }
+
+        public IEnumerable<Blacksmith> CloseToExpiring(int daysToExpire)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<string> HowManyItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Blacksmith> DiscontPrice()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Blacksmith> BetterQuality(int quality)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

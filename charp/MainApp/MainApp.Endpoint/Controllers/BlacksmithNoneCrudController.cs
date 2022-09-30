@@ -7,11 +7,11 @@ namespace MainApp.Endpoint.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    public class NoneCrudController : ControllerBase
+    public class BlacksmithNoneCrudController : ControllerBase
     {
         IBlacksmithLogic blacksmithLogic;
 
-        public NoneCrudController(IBlacksmithLogic blacksmithLogic)
+        public BlacksmithNoneCrudController(IBlacksmithLogic blacksmithLogic)
         {
             this.blacksmithLogic = blacksmithLogic;
         }

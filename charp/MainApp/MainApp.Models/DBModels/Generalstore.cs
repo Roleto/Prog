@@ -33,6 +33,16 @@ namespace MainApp.Models.DBModels
                 ExpiringDate = null;
                 
         }
+        public Generalstore(Generalstore generalstore):this()
+        {
+            this.Id = generalstore.Id;
+            this.MaterialId = generalstore.MaterialId;
+            this.Name = generalstore.Name;
+            this.Price = generalstore.Price;
+            this.Quality = generalstore.Quality;
+            this.ExpiringDate = generalstore.ExpiringDate;
+            
+        }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
