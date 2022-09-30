@@ -99,7 +99,7 @@ namespace MainApp.Logic.Classes
 
         public IEnumerable<Generalstore> BetterQuality(int quality)
         {
-            throw new NotImplementedException();
+            return this.repo.GetAll().Where(x => x.Quality >= quality);
         }
     }
 }
