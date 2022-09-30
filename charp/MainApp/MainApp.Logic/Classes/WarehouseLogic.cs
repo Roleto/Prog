@@ -52,29 +52,65 @@ namespace MainApp.Logic.Classes
             return this.repo.GetAll();
         }
 
-        public IEnumerable<Blacksmith> WHatCanCreateTheBlacksmith()
+        public IEnumerable<Recepie> WhatCanCreateTheBlacksmith()
         {
-            throw new NotImplementedException();
+            return from wares in this.repo.GetAll()
+                   from recepie in this.repo.GetDbContext().Recepies
+                   where wares.MaterialType.ToLower() == "ore"
+                   && wares.Id == recepie.MaterialId
+                   && wares.Quantity >= recepie.MaterialQuantity
+                   select recepie;
         }
 
-        public IEnumerable<Generalstore> WHatCanCreateTheGeneralStorte()
+        private bool WhatKindOfMaterialNedded(bool isBlackSmith, string materialType)
         {
-            throw new NotImplementedException();
+            string help = materialType.ToLower();
+            if (isBlackSmith)
+            {
+                if (help == "ore" )
+                {
+                    return true;
+                }
+            }else
+            {
+
+            }
+            return false;
+        }
+
+        public IEnumerable<Recepie> WhatCanCreateTheGeneralStorte()
+        {
+            return from wares in this.repo.GetAll()
+                   from recepie in this.repo.GetDbContext().Recepies
+                   where wares.MaterialType.ToLower() != "ore"
+                   && wares.Id == recepie.MaterialId
+                   && wares.Quantity >= recepie.MaterialQuantity
+                   select recepie;
         }
 
         public IEnumerable<Recepie> RecepieWithMaterail(int materialId)
         {
-            throw new NotImplementedException();
+            return this.repo.GetDbContext().Recepies.Where(x => x.MaterialId == materialId);
         }
 
-        public double? AvgQantity()
+        public IEnumerable<string> AvgMaterialTypePrice()
         {
-            throw new NotImplementedException();
-        }
+            var q = from ware in this.repo.GetAll()
+                    group ware by ware.MaterialType into g
+                    select new
+                    {
+                        MaterialType = g.Key,
+                        Quntity = g.Where(y => y.MaterialType == g.Key).Count(),
+                        Avg_Price = g.Average(y => y.Price)
+                    } ;
 
-        public IEnumerable<string> MaterialTypes()
-        {
-            throw new NotImplementedException();
+            List<string> output = new List<string>();
+            foreach (var item in q)
+            {
+                output.Add($"{item.MaterialType}, {item.Quntity} ,{item.Avg_Price}");
+            }
+
+            return output;
         }
     }
 }

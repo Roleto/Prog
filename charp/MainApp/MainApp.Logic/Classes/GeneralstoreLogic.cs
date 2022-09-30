@@ -80,7 +80,12 @@ namespace MainApp.Logic.Classes
 
         public IEnumerable<string> HowManyItem()
         {
-            throw new NotImplementedException();
+            return (IEnumerable<string>)this.repo.GetAll().GroupBy(x => x.Name).Select(x => new
+            {
+                Name = x.Key,
+                Quantiy = x.Count(),
+                AvgPrice = x.Average(y=> y.Price)
+            });
         }
 
         public IEnumerable<Generalstore> DiscontPrice()

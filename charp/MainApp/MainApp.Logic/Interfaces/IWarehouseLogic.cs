@@ -10,10 +10,9 @@ namespace MainApp.Logic.Interfaces
         void Delete(int id);
         IEnumerable<WareHouse> GetAll();
 
-        IEnumerable<Blacksmith> WHatCanCreateTheBlacksmith();
-        IEnumerable<Generalstore> WHatCanCreateTheGeneralStorte();
+        IEnumerable<Recepie> WhatCanCreateTheBlacksmith();
+        IEnumerable<Recepie> WhatCanCreateTheGeneralStorte();
         IEnumerable<Recepie> RecepieWithMaterail(int materialId);
-        double? AvgQantity();
-        IEnumerable<string> MaterialTypes();
+        IEnumerable<string> AvgMaterialTypePrice();
     }
 }
