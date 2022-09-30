@@ -52,5 +52,7 @@ namespace MainApp.Logic.Classes
         {
             return this.repo.GetAll();
         }
+
+       
     }
 }

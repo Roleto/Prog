@@ -11,7 +11,7 @@ namespace MainApp.Logic.Interfaces
         IEnumerable<Blacksmith> GetAll();
         public IEnumerable<string> HowManyCreting(int materialid);
         public IEnumerable<string> HowManyHave();
-        public IEnumerable<Blacksmith> BetterQuality(int Quality);
+        public IEnumerable<Blacksmith> BetterQuality(int quality);
         public IEnumerable<Blacksmith> NeedToRepair();
         public IEnumerable<string> AvgItemPrices();
     }

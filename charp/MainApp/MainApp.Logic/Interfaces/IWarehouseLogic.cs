@@ -9,5 +9,11 @@ namespace MainApp.Logic.Interfaces
         void Update(WareHouse newEntity);
         void Delete(int id);
         IEnumerable<WareHouse> GetAll();
+
+        IEnumerable<Blacksmith> WHatCanCreateTheBlacksmith();
+        IEnumerable<Generalstore> WHatCanCreateTheGeneralStorte();
+        IEnumerable<Recepie> RecepieWithMaterail(int materialId);
+        double? AvgQantity();
+        IEnumerable<string> MaterialTypes();
     }
 }

@@ -9,5 +9,11 @@ namespace MainApp.Logic.Interfaces
         void Update(Generalstore newEntity);
         void Delete(int id);
         IEnumerable<Generalstore> GetAll();
+
+        public IEnumerable<string> WhatCanCreate(int id);
+        public IEnumerable<Blacksmith> CloseToExpiring(int daysToExpire);
+        public IEnumerable<string> HowManyItem();
+        public IEnumerable<Blacksmith> DiscontPrice();
+        public IEnumerable<Blacksmith> BetterQuality(int quality);
     }
 }

@@ -9,5 +9,10 @@ namespace MainApp.Logic.Interfaces
         void Update(Recepie newEntity);
         void Delete(int id);
         IEnumerable<Recepie> GetAll();
+
+        public IEnumerable<string> WhatIsMissing();
+        public IEnumerable<string> WhatCanCreate();
+        void HowManyCanCreate(int recepieId, int quantity);
+        void WhatCanCreate(int id);
     }
 }
