@@ -72,14 +72,14 @@ namespace MainApp.Models.DBModels
             {
                 // Id;MaterialId;Name;IsDamaged;Price;Quality;
                 new Blacksmith("1;2;Iron Sword;False;1000;7"),
-                new Blacksmith("2;5;Bronz Sword;False;1300;5"),
+                new Blacksmith("2;5;Bronze Sword;False;1300;5"),
                 new Blacksmith("3;6;Silver Necklace;False;2000;4"),
                 new Blacksmith("4;7;Golden Ring;False;1500;7"),
                 new Blacksmith("5;2;Iron Sword;True;1000;9"),
                 new Blacksmith("6;2;Iron Sword;True;1000;3"),
-                new Blacksmith("7;5;Bronz Sword;True;1300;2"),
-                new Blacksmith("8;5;Bronz Sword;True;1300;6"),
-                new Blacksmith("9;5;Bronz Sword;True;1300;8"),
+                new Blacksmith("7;5;Bronze Sword;True;1300;2"),
+                new Blacksmith("8;5;Bronze Sword;True;1300;6"),
+                new Blacksmith("9;5;Bronze Sword;True;1300;8"),
 
             });
             modelBuilder.Entity<Generalstore>().HasData(new Generalstore[]
@@ -108,7 +108,7 @@ namespace MainApp.Models.DBModels
                 new Recepie("7;Ham;9;5"),
                 new Recepie("8;Iron Sword;2;2"),
                 new Recepie("9;Bronze Sword;5;3"),
-                new Recepie("10;Silver Necklance;6;3"),
+                new Recepie("10;Silver Necklace;6;3"),
                 new Recepie("11;Silver Ring;6;1"),
                 new Recepie("12;Golden Necklance;7;3"),
                 new Recepie("13;Golden Ring;7;1"),

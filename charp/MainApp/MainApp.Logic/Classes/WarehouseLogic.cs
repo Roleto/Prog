@@ -90,6 +90,7 @@ namespace MainApp.Logic.Classes
 
         public IEnumerable<Recepie> RecepieWithMaterail(int materialId)
         {
+            this.Read(materialId);
             return this.repo.GetDbContext().Recepies.Where(x => x.MaterialId == materialId);
         }
 

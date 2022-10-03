@@ -1,9 +1,11 @@
 ﻿using MainApp.Logic.Interfaces;
 using MainApp.Models.DBModels;
 using MainApp.Repository.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,9 +54,38 @@ namespace MainApp.Logic.Classes
             return repo.GetAll();
         }
 
-        public IEnumerable<string> WhatIsMissing()
+        public IEnumerable<Recepie> WhatIsMissing(string table)
         {
-            throw new NotImplementedException();
+            if (table.ToLower() == "blacksmith")
+            {
+                return //from smith in this.repo.GetDbContext().Blacksmith
+                       from wares in this.repo.GetDbContext().Warehouse.Where(x=> x.MaterialType.ToLower() == "ore")
+                       from recepies in this.repo.GetAll()
+                       where wares.Id == recepies.MaterialId
+                       join smith in this.repo.GetDbContext().Blacksmith
+                       on wares.Id equals smith.MaterialId
+                       where recepies.RecepieName != smith.Name
+                       select recepies;
+            }
+            else if (table.ToLower() == "generalstore")
+            {
+                var items =  from wares in this.repo.GetDbContext().Warehouse.Where(x => x.MaterialType.ToLower() != "ore")
+                             from recepies in this.repo.GetAll()
+                             where wares.Id == recepies.MaterialId
+                             join general in this.repo.GetDbContext().Generalstore
+                             on wares.Id equals general.MaterialId
+                             where recepies.RecepieName != general.Name
+                             select recepies;
+                ;
+                return from item in items.GroupBy(x => x.RecepieId).ToList()//itt tartasz                     
+                       from recepies in this.repo.GetAll()
+                       where item.Key == recepies.RecepieId
+                       select recepies;
+            }
+            else
+            {
+                throw new ArgumentException($"There is no {table} table in the database");
+            }
         }
 
         public IEnumerable<string> WhatCanCreate()

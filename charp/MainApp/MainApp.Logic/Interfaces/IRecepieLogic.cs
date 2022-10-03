@@ -10,7 +10,7 @@ namespace MainApp.Logic.Interfaces
         void Delete(int id);
         IEnumerable<Recepie> GetAll();
 
-        public IEnumerable<string> WhatIsMissing();
+        public IEnumerable<Recepie> WhatIsMissing(string table);
         public IEnumerable<string> WhatCanCreate();
         void HowManyCanCreate(int recepieId, int quantity);
         void WhatCanCreate(int id);
