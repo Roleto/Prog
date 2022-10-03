@@ -2,7 +2,7 @@
 @section('title', 'CreatingWarehouse')
 @section('content')
 <div class="max-w-6xl bg-white dark:bg-gray-800  text-gray-500 mx-auto sm:px-6 lg:px-8 ">
-    <form class="form  p-6  border-1" method="POST" action="">
+    <form class="form  p-6  border-1" method="POST" action="{{route('warehouse.store')}}">
     @csrf
         <div>
             <label class="text-sm"  for="name">Name</label><p>

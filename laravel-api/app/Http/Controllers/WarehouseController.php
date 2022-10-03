@@ -15,7 +15,9 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        return view('warehouse.index');
+        return view('warehouse.index',[
+            'wares' => Warehouse::all()
+        ]);
     }
 
     /**
@@ -36,7 +38,16 @@ class WarehouseController extends Controller
      */
     public function store(StoreWarehouseRequest $request)
     {
-        //
+        $wares = new Warehouse();
+
+        $wares->name =$request->input('name');
+        $wares->materialtype =$request->input('materialtype');
+        $wares->price =$request->input('price');
+        $wares->quantity =$request->input('quantity');
+
+        $wares->save();
+
+        return redirect()->route('wares.index');
     }
 
     /**

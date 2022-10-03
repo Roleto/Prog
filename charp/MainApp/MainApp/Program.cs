@@ -68,6 +68,7 @@ internal class Program
 
     private static void NonCrude1(TableEnum myEnum)
     {
+        return;
         switch (myEnum)
         {
             default:
@@ -95,6 +96,7 @@ internal class Program
 
     private static void NonCrude2(TableEnum myEnum)
     {
+        return;
         switch (myEnum)
         {
             default:
@@ -117,6 +119,7 @@ internal class Program
 
     private static void NonCrude3(TableEnum myEnum)
     {
+        return;
         switch (myEnum)
         {
             default:
@@ -140,6 +143,7 @@ internal class Program
 
     private static void NonCrude4(TableEnum myEnum)
     {
+        return;
         switch (myEnum)
         {
             default:
@@ -162,6 +166,7 @@ internal class Program
 
     private static void NonCrude5(TableEnum myEnum)
     {
+        return;
         switch (myEnum)
         {
             default:
