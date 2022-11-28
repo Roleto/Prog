@@ -4,6 +4,7 @@ using MainApp.Models.DBModels;
 using MainApp.Repository.Class;
 using MainApp.Repository.Interface;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,7 +48,7 @@ app.UseExceptionHandler(c => c.Run(async context =>
 }));
 app.UseRouting();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
 

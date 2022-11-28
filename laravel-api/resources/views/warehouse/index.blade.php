@@ -1,8 +1,8 @@
 @extends('layout')
 @section('title', 'Warehouse')
 @section('content')
-<div class= "max-w-6xl mx-auto sm:px-6 lg:px-8"> 
-    <table>
+<div class="col-md-4 "> 
+    <table class="table  table-responsive table-dark table-borderless table-sm table-hover">
         <tr>    
             <td>Id</td>
             <td>Name</td>
@@ -15,10 +15,9 @@
         <tr>
             <td>{{$ware['id']}}</td>
             <td>{{$ware['name']}}</td>
-            <td>{{$ware['materialtype']}}</td>
+            <td>{{$ware['materialType']}}</td>
             <td>{{$ware['quantity']}}</td>
             <td>{{$ware['price']}}</td>
-            <!-- <td><a href="{{ route('destroy', $production['id']) }}">X</a></td> -->
         </tr>
             @endforeach
         @endif

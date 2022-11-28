@@ -19,3 +19,11 @@ Route::get('/', function () {
 });
 
 Route::resource('warehouse',WarehouseController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
