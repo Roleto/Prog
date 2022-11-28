@@ -2,7 +2,7 @@
 using MainApp.Models.DBModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.SignalR;
 
 namespace MainApp.Endpoint.Controllers
 {
@@ -12,10 +12,12 @@ namespace MainApp.Endpoint.Controllers
     {
 
         IWarehouseLogic logic;
+        IHubContext<SignalRHub> hub;      
 
-        public WarehouseController(IWarehouseLogic logic)
+        public WarehouseController(IWarehouseLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
+            this.hub = hub;
         }
 
         [HttpGet]
@@ -34,18 +36,22 @@ namespace MainApp.Endpoint.Controllers
         public void Create([FromBody] WareHouse value)
         {
             this.logic.Create(value);
+            this.hub.Clients.All.SendAsync("WarehpuseCreated", value);
         }
 
         [HttpPut]
         public void Update([FromBody] WareHouse value)
         {
             this.logic.Update(value);
+            this.hub.Clients.All.SendAsync("WarehpuseUpdated", value);
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var wareToDelete = this.logic.Read(id);
             this.logic.Delete(id);
+            this.hub.Clients.All.SendAsync("WarehpuseDeleted", wareToDelete);
         }
     }
 }

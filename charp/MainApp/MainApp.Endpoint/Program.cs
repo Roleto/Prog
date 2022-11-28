@@ -1,3 +1,4 @@
+using MainApp.Endpoint;
 using MainApp.Logic.Classes;
 using MainApp.Logic.Interfaces;
 using MainApp.Models.DBModels;
@@ -29,7 +30,10 @@ builder.Services.AddTransient<IRecepieLogic, RecepieLogic>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -47,6 +51,12 @@ app.UseExceptionHandler(c => c.Run(async context =>
     await context.Response.WriteAsJsonAsync(response);
 }));
 app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<SignalRHub>("/hub");
+});
 
 //app.UseAuthorization();
 
