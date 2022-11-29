@@ -7,6 +7,7 @@ using MainApp.Repository.Interface;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,11 @@ builder.Services.AddTransient<IRecepieLogic, RecepieLogic>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "MainApp.Endpoint", Version = "v1" });
+});
 var app = builder.Build();
 
 
@@ -39,7 +45,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MainApp.Endpoint v1"));
 }
 
 app.UseExceptionHandler(c => c.Run(async context =>

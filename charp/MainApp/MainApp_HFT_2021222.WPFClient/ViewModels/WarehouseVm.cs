@@ -55,5 +55,10 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
             }
 
         }
+
+        public void Add()
+        {
+
+        }
     }
 }

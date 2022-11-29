@@ -24,7 +24,11 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
     public class MainWindowVm : ObservableRecipient
     {
         private Page currentPage;
+        private ContentTxpe currentPageType;
         public Dictionary<ContentTxpe,Page> Pages { get; set; }
+
+
+
         public Page CurrentPage 
         {
             get => this.currentPage;
@@ -54,10 +58,7 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
 
                 //http://localhost:5025/Warehouse
                 //WareHouses = new RestCollection<WareHouse>("http://localhost:5025/", "Warehouse", "hub");
-                //    AddCmd = new RelayCommand(() =>
-                //    {
-                //        WareHouses.Add(new WareHouse() { Name = SelectedWareHouse.Name });
-                //    });
+                AddCmd = new RelayCommand(() => this.Adding());
 
                 //    ModCmd = new RelayCommand(() =>
                 //    {
@@ -79,13 +80,30 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 Pages.Add(ContentTxpe.Blacksmith, new BlacksmithPage("http://localhost:5025/", nameof(Blacksmith)));
                 Pages.Add(ContentTxpe.General, new GeneralStorePage("http://localhost:5025/", nameof(Generalstore)));
                 CurrentPage = Pages[ContentTxpe.WareHouse];
+                this.currentPageType = ContentTxpe.WareHouse;
             }
            
         }
 
         private void ChangePage(ContentTxpe pageType)
         {
-                    CurrentPage = Pages[pageType];
+            CurrentPage = Pages[pageType];
+            this.currentPageType = pageType;
+        }
+        private void Adding()
+        {
+            switch (this.currentPageType)
+            {
+                case ContentTxpe.WareHouse:
+                    break;
+                case ContentTxpe.General:
+                    break;
+                case ContentTxpe.Blacksmith:
+                    (CurrentPage.DataContext as BlacksmithVm).Add(); 
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

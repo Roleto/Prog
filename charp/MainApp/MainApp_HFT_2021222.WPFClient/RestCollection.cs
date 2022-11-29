@@ -15,7 +15,7 @@ namespace MainApp_HFT_2021222.WPFClient
     {
         HttpClient client;
 
-        public RestService(string baseurl, string pingableEndpoint = "/warehouse")
+        public RestService(string baseurl, string pingableEndpoint = "swagger")
         {
             bool isOk = false;
             do
@@ -408,7 +408,5 @@ namespace MainApp_HFT_2021222.WPFClient
             }
 
         }
-
-
     }
 }

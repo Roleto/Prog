@@ -1,4 +1,5 @@
 ﻿using MainApp.Models.DBModels;
+using MainApp_HFT_2021222.WPFClient.Windows;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
 {
     public class BlacksmithVm : ObservableRecipient
     {
+        private RestCollection<Blacksmith> blacksmiths;
         private Blacksmith selectedBlacksmith;
         public BlacksmithVm()
         {
@@ -26,7 +28,14 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 SelectedBlacksmith = Blacksmiths.FirstOrDefault();
             }
         }
-        public RestCollection<Blacksmith> Blacksmiths { get; set; }
+        public RestCollection<Blacksmith> Blacksmiths 
+        {
+            get => this.blacksmiths;
+            set
+            {
+                SetProperty(ref this.blacksmiths, value);
+            }
+        }
 
         public Blacksmith SelectedBlacksmith
         {
@@ -43,6 +52,29 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                     OnPropertyChanged();
                     //(DelCmd as RelayCommand).NotifyCanExecuteChanged();
                 }
+            }
+        }
+        public void Add()
+        {
+            BlacksmithEditorWindow win = new BlacksmithEditorWindow();
+            if (win.ShowDialog() == true)
+            {
+                Blacksmiths.Add(win.DataContext as Blacksmith);
+               // OnPropertyChanged(nameof(Blacksmiths));
+            }
+        }
+        public void Remove()
+        {
+            if (SelectedBlacksmith == null) return;
+            Blacksmiths.Delete(SelectedBlacksmith.Id);
+        }
+        public void Update()
+        {
+            if (SelectedBlacksmith == null) return;
+            BlacksmithEditorWindow win = new BlacksmithEditorWindow(SelectedBlacksmith);
+            if (win.ShowDialog() == true)
+            {
+                Blacksmiths.Update(win.DataContext as Blacksmith);
             }
         }
         public static bool IsInDesigneMode

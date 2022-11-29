@@ -1,0 +1,30 @@
+﻿<Window x:Class="MainApp_HFT_2021222.WPFClient.Windows.BlacksmithEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MainApp_HFT_2021222.WPFClient.Windows"
+        xmlns:model="clr-namespace:MainApp.Models.DBModels;assembly=MainApp.Models"
+        mc:Ignorable="d"
+        Title="BlacksmithEditorWindow" Height="347" Width="400">
+    <Window.DataContext>
+        <model:Blacksmith/>
+    </Window.DataContext>
+    <StackPanel>
+        <Label Content="MaterialId" Background="AliceBlue"/>
+        <TextBox Text="{Binding Path=MaterialId}" />
+        <Label Content="Name" Background="AliceBlue"/>
+        <TextBox Text="{Binding Path=Name}" />
+        <Label Content="Damaged" Background="AliceBlue"/>
+        <TextBox Text="{Binding Path=Damaged}" />
+        <Label Content="BasePrice" Background="AliceBlue"/>
+        <TextBox Text="{Binding Path=BasePrice}" />
+        <Label Content="Quality" Background="AliceBlue"/>
+        <TextBox Text="{Binding Path=Quality}" />
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Save" Click="OkCick" Margin="10" Padding="10" Width="75"/>
+            <Button Content="Close" Click="FalseCick"  Margin="10" Padding="10" Width="75"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
