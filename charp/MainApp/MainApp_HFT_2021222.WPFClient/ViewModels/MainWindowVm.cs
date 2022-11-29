@@ -23,14 +23,7 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
     }
     public class MainWindowVm : ObservableRecipient
     {
-      
-        
-      
         private Page currentPage;
-        
-       
-       
-
         public Dictionary<ContentTxpe,Page> Pages { get; set; }
         public Page CurrentPage 
         {
@@ -40,7 +33,6 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 SetProperty(ref this.currentPage, value);
             }
         }
-
         public static bool IsInDesigneMode 
         {
             get 
@@ -48,48 +40,7 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 var prop = DesignerProperties.IsInDesignModeProperty;
                 return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
             }
-                
         }
-
-
-     
-
-        public WareHouse SelectedBlacksmith
-        {
-            get { return selectedBlacksmith; }
-            set
-            {
-                if (value != null)
-                {
-                    selectedBlacksmith = new WareHouse()
-                    {
-                        Id = value.Id,
-                        Name = value.Name
-                    };
-                    OnPropertyChanged();
-                    (DelCmd as RelayCommand).NotifyCanExecuteChanged();
-                }
-            }
-        }
-
-        public WareHouse SelectedGeneralstore
-        {
-            get { return selectedGeneralstore; }
-            set
-            {
-                if (value != null)
-                {
-                    selectedGeneralstore = new WareHouse()
-                    {
-                        Id = value.Id,
-                        Name = value.Name
-                    };
-                    OnPropertyChanged();
-                    (DelCmd as RelayCommand).NotifyCanExecuteChanged();
-                }
-            }
-        }
-
         public ICommand  AddCmd{ get; set; }
         public ICommand  DelCmd{ get; set; }
         public ICommand  ModCmd{ get; set; }
@@ -123,8 +74,11 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 ChangePageToBlacksmithCmd = new RelayCommand(() => ChangePage(ContentTxpe.Blacksmith));
                 ChangePageToWarehouseCmd = new RelayCommand(() => ChangePage(ContentTxpe.WareHouse));
                 ChangePageToGeneralCmd = new RelayCommand(() => ChangePage(ContentTxpe.General));
-
-                CurrentPage = new WarehousePage("http://localhost:5025/", "Warehouse");
+                Pages = new Dictionary<ContentTxpe, Page>();
+                Pages.Add(ContentTxpe.WareHouse, new WarehousePage("http://localhost:5025/", nameof(WareHouse)));
+                Pages.Add(ContentTxpe.Blacksmith, new BlacksmithPage("http://localhost:5025/", nameof(Blacksmith)));
+                Pages.Add(ContentTxpe.General, new GeneralStorePage("http://localhost:5025/", nameof(Generalstore)));
+                CurrentPage = Pages[ContentTxpe.WareHouse];
             }
            
         }
