@@ -15,19 +15,18 @@
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <ListBox ItemsSource="{Binding Path=WareHouses}" SelectedItem="{Binding Path=SelectedWareHouse}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding Path=Name}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Frame x:Name="Main" Grid.Column="0" Content="{Binding Path=CurrentPage}"/>
         <StackPanel Grid.Column="1">
             <Label Content="Name" Background="LightBlue" Padding="10"/>
             <TextBox Text="{Binding Path=SelectedWareHouse.Name}" Padding="10" Margin="0,0,0,30"/>
             <Button Content="Create WareHouse" Command="{Binding Path=AddCmd}" Margin="10" Padding="10"/>
             <Button Content="Delete WareHouse" Command="{Binding Path=DelCmd}" Margin="10" Padding="10"/>
             <Button Content="Update WareHouse" Command="{Binding Path=ModCmd}" Margin="10" Padding="10"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Warehouse" Command="" Margin="10" Padding="10" Width="100"/>
+                <Button Content="Blacksmith" Command="" Margin="10" Padding="10" Width="100"/>
+                <Button Content="Generalstore" Command="" Margin="10" Padding="10" Width="100" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

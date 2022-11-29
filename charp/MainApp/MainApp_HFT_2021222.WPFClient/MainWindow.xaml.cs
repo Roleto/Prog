@@ -20,6 +20,7 @@ namespace MainApp_HFT_2021222.WPFClient
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();

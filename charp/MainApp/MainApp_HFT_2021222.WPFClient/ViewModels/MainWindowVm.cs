@@ -1,4 +1,5 @@
 ﻿using MainApp.Models.DBModels;
+using MainApp_HFT_2021222.WPFClient.Windows;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using System;
@@ -9,14 +10,36 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MainApp_HFT_2021222.WPFClient.ViewModels
 {
+    public enum ContentTxpe
+    {
+        WareHouse,
+        General,
+        Blacksmith
+    }
     public class MainWindowVm : ObservableRecipient
     {
-        private WareHouse selectedWareHouse;
-        public RestCollection<WareHouse> WareHouses { get; set; }
+      
+        
+      
+        private Page currentPage;
+        
+       
+       
+
+        public Dictionary<ContentTxpe,Page> Pages { get; set; }
+        public Page CurrentPage 
+        {
+            get => this.currentPage;
+            set
+            {
+                SetProperty(ref this.currentPage, value);
+            }
+        }
 
         public static bool IsInDesigneMode 
         {
@@ -29,15 +52,35 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
         }
 
 
-        public WareHouse SelectedWareHouse
+     
+
+        public WareHouse SelectedBlacksmith
         {
-            get { return selectedWareHouse; }
-            set 
-            { 
-                if(value != null)
+            get { return selectedBlacksmith; }
+            set
+            {
+                if (value != null)
                 {
-                    selectedWareHouse = new WareHouse()
-                    { 
+                    selectedBlacksmith = new WareHouse()
+                    {
+                        Id = value.Id,
+                        Name = value.Name
+                    };
+                    OnPropertyChanged();
+                    (DelCmd as RelayCommand).NotifyCanExecuteChanged();
+                }
+            }
+        }
+
+        public WareHouse SelectedGeneralstore
+        {
+            get { return selectedGeneralstore; }
+            set
+            {
+                if (value != null)
+                {
+                    selectedGeneralstore = new WareHouse()
+                    {
                         Id = value.Id,
                         Name = value.Name
                     };
@@ -50,30 +93,45 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
         public ICommand  AddCmd{ get; set; }
         public ICommand  DelCmd{ get; set; }
         public ICommand  ModCmd{ get; set; }
+        public ICommand  ChangePageToWarehouseCmd{ get; set; }
+        public ICommand  ChangePageToBlacksmithCmd{ get; set; }
+        public ICommand  ChangePageToGeneralCmd{ get; set; }
         public MainWindowVm()
         {
             if (!IsInDesigneMode)
             {
-                //'http://localhost:5025/Warehouse'
-                WareHouses = new RestCollection<WareHouse>("http://localhost:5025/", "Warehouse", "hub");
-                AddCmd = new RelayCommand(() =>
-                {
-                    WareHouses.Add(new WareHouse() { Name = SelectedWareHouse.Name });
-                });
 
-                ModCmd = new RelayCommand(() =>
-                {
-                    WareHouses.Update(SelectedWareHouse);
-                });
+                //http://localhost:5025/Warehouse
+                //WareHouses = new RestCollection<WareHouse>("http://localhost:5025/", "Warehouse", "hub");
+                //    AddCmd = new RelayCommand(() =>
+                //    {
+                //        WareHouses.Add(new WareHouse() { Name = SelectedWareHouse.Name });
+                //    });
 
-                DelCmd = new RelayCommand(() =>
-                {
-                    WareHouses.Delete(SelectedWareHouse.Id);
-                },
-                () => { return SelectedWareHouse != null; });
-            SelectedWareHouse = new WareHouse(); 
+                //    ModCmd = new RelayCommand(() =>
+                //    {
+                //        WareHouses.Update(SelectedWareHouse);
+                //    });
+
+                //    DelCmd = new RelayCommand(() =>
+                //    {
+                //        WareHouses.Delete(SelectedWareHouse.Id);
+                //    },
+                //    () => { return SelectedWareHouse != null; });
+                //SelectedWareHouse = new WareHouse(); 
+
+                ChangePageToBlacksmithCmd = new RelayCommand(() => ChangePage(ContentTxpe.Blacksmith));
+                ChangePageToWarehouseCmd = new RelayCommand(() => ChangePage(ContentTxpe.WareHouse));
+                ChangePageToGeneralCmd = new RelayCommand(() => ChangePage(ContentTxpe.General));
+
+                CurrentPage = new WarehousePage("http://localhost:5025/", "Warehouse");
             }
            
+        }
+
+        private void ChangePage(ContentTxpe pageType)
+        {
+                    CurrentPage = Pages[pageType];
         }
     }
 }
