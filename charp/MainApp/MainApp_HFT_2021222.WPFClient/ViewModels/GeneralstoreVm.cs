@@ -1,4 +1,5 @@
 ﻿using MainApp.Models.DBModels;
+using MainApp_HFT_2021222.WPFClient.Windows;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -23,12 +24,12 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
             if (!IsInDesigneMode)
             {
                 Generalstores = new RestCollection<Generalstore>(baseurl, table, "hub");
-                SelectedBlacksmith = Generalstores.FirstOrDefault();
+                SelectedGeneralstore = Generalstores.FirstOrDefault();
             }
         }
         public RestCollection<Generalstore> Generalstores { get; set; }
 
-        public Generalstore SelectedBlacksmith
+        public Generalstore SelectedGeneralstore
         {
             get { return selectedGeneralstore; }
             set
@@ -53,6 +54,28 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
             }
 
+        }
+        public void Add()
+        {
+            GeneralstoreEditorWindow win = new GeneralstoreEditorWindow();
+            if (win.ShowDialog() == true)
+            {
+                Generalstores.Add(win.DataContext as Generalstore);
+            }
+        }
+        public void Remove()
+        {
+            if (SelectedGeneralstore == null) return;
+            Generalstores.Delete(SelectedGeneralstore.Id);
+        }
+        public void Update()
+        {
+            if (SelectedGeneralstore == null) return;
+            GeneralstoreEditorWindow win = new GeneralstoreEditorWindow(SelectedGeneralstore);
+            if (win.ShowDialog() == true)
+            {
+                Generalstores.Update(win.DataContext as Generalstore);
+            }
         }
     }
 }

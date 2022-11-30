@@ -1,4 +1,5 @@
 ﻿using MainApp.Models.DBModels;
+using MainApp_HFT_2021222.WPFClient.Windows;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using System;
@@ -58,7 +59,25 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
 
         public void Add()
         {
-
+            WharehouseEditorWindow win = new WharehouseEditorWindow();
+            if (win.ShowDialog() == true)
+            {
+                WareHouses.Add(win.DataContext as WareHouse);
+            }
+        }
+        public void Remove()
+        {
+            if (SelectedWareHouse == null) return;
+            WareHouses.Delete(SelectedWareHouse.Id);
+        }
+        public void Update()
+        {
+            if (SelectedWareHouse == null) return;
+            WharehouseEditorWindow win = new WharehouseEditorWindow(SelectedWareHouse);
+            if (win.ShowDialog() == true)
+            {
+                WareHouses.Update(win.DataContext as WareHouse);
+            }
         }
     }
 }
