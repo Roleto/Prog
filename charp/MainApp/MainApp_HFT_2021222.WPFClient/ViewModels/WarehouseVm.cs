@@ -127,7 +127,7 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
         public void Remove()
         {
             if (SelectedWareHouse == null) return;
-            // WareHouses.Delete(SelectedWareHouse.Id);
+             WareHouses.Delete(SelectedWareHouse.Id);
         }
 
         public void Uppdate()

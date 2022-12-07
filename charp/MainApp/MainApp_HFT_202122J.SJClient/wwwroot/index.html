@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Ware Ui</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <h1>Ware Catalog</h1>
+
+    <div id="formdiv">
+        <label>Ware Material type</label>
+        <input type="text" id="waremat" />
+        <label>Ware Name</label>
+        <input type="text" id="warename" />
+        <label>Ware Price</label>
+        <input type="text" id="wareprice" />
+        <label>Ware Quantity</label>
+        <input type="text" id="warequantity" />
+        <button type="button" onclick="create()">Add Actor</button>
+    </div>
+
+    <div id="updateformdiv">
+        <label>Ware Material type</label>
+        <input type="text" id="waremattoupdate" />
+        <label>Ware Name</label>
+        <input type="text" id="warenametoupdate" />
+        <label>Ware Price</label>
+        <input type="text" id="warepricetoupdate" />
+        <label>Ware Quantity</label>
+        <input type="text" id="warequantitytoupdate" />
+        <button type="button" onclick="update()">Update Actor</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Material type</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultarea">
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

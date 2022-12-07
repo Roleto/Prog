@@ -56,7 +56,15 @@ app.UseExceptionHandler(c => c.Run(async context =>
     var response = new { Msg = exeption.Message };
     await context.Response.WriteAsJsonAsync(response);
 }));
+
 app.UseRouting();
+
+app.UseCors(x => x
+    .AllowCredentials()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .WithOrigins("http://localhost:32435"));
+
 
 app.UseAuthorization();
 
