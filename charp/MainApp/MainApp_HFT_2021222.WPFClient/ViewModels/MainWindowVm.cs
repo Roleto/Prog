@@ -23,9 +23,6 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
     }
     public class MainWindowVm : ObservableRecipient
     {
-        private Page currentPage;
-        private ContentTxpe currentPageType;
-        public Dictionary<ContentTxpe,Page> Pages { get; set; }
         public WarehouseVm WareVm { get; set; }
         public RestCollection<Warehouse> Wares { get; set; }
         public RestCollection<Blacksmith> Blacksmiths { get; set; }
@@ -33,14 +30,6 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
 
 
 
-        public Page CurrentPage 
-        {
-            get => this.currentPage;
-            set
-            {
-                SetProperty(ref this.currentPage, value);
-            }
-        }
         public static bool IsInDesigneMode 
         {
             get 
@@ -49,12 +38,9 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 return (bool)DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
             }
         }
-        public ICommand  AddCmd{ get; set; }
-        public ICommand  DelCmd{ get; set; }
-        public ICommand  ModCmd{ get; set; }
-        public ICommand  ChangePageToWarehouseCmd{ get; set; }
-        public ICommand  ChangePageToBlacksmithCmd{ get; set; }
-        public ICommand  ChangePageToGeneralCmd{ get; set; }
+        public ICommand  OpenWareCmd { get; set; }
+        public ICommand  OpenBlacksmithCmd{ get; set; }
+        public ICommand  OpenGeneralCmd { get; set; }
         public MainWindowVm()
         {
             if (!IsInDesigneMode)
@@ -81,9 +67,9 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 //    () => { return SelectedWareHouse != null; });
                 //SelectedWareHouse = new WareHouse(); 
 
-                ChangePageToBlacksmithCmd = new RelayCommand(() => OpenWindow(ContentTxpe.Blacksmith));
-                ChangePageToWarehouseCmd = new RelayCommand(() => OpenWindow(ContentTxpe.WareHouse));
-                ChangePageToGeneralCmd = new RelayCommand(() => OpenWindow(ContentTxpe.General));
+                OpenBlacksmithCmd = new RelayCommand(() => OpenWindow(ContentTxpe.Blacksmith));
+                OpenWareCmd  = new RelayCommand(() => OpenWindow(ContentTxpe.WareHouse));
+                OpenGeneralCmd  = new RelayCommand(() => OpenWindow(ContentTxpe.General));
                 
                 //Pages.Add(ContentTxpe.WareHouse, new WarehousePage("http://localhost:5025/", "Warehouse"));
                 //Pages.Add(ContentTxpe.Blacksmith, new BlacksmithPage("http://localhost:5025/", "Blacksmith"));
@@ -95,25 +81,23 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
         
         private void OpenWindow(ContentTxpe pageType)
         {
-            if (Wares == null)
-            {
-                Wares = new RestCollection<Warehouse>("http://localhost:5025/", "Warehouse", "hub");
-            }
+            //if (Wares == null)
+            //{
+            //    Wares = new RestCollection<Warehouse>("http://localhost:5025/", "Warehouse", "hub");
+            //}
             switch (pageType)
             {
                 case ContentTxpe.WareHouse:
-
-                    WharehouseEditorWindow win = new WharehouseEditorWindow();
-                    if (win.ShowDialog() == true)
-                    {
-
-                    }
+                    WharehouseEditorWindow warewin = new WharehouseEditorWindow();
+                    warewin.ShowDialog();
                     break;
                 case ContentTxpe.General:
+                    GeneralstoreEditorWindow generalwin = new GeneralstoreEditorWindow();
+                    generalwin.ShowDialog();
                     break;
                 case ContentTxpe.Blacksmith:
-                    break;
-                default:
+                    BlacksmithEditorWindow blackwin = new BlacksmithEditorWindow();
+                    blackwin.ShowDialog();
                     break;
             }
         }

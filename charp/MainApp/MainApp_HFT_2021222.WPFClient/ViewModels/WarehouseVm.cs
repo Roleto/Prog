@@ -28,6 +28,8 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 WareHouses = new RestCollection<Warehouse>("http://localhost:5025/", "Warehouse", "hub");
                 selectedWareHouse = WareHouses.FirstOrDefault();
                 AddCmd = new RelayCommand(() => this.Add());
+                ModCmd = new RelayCommand(() => this.Uppdate());
+                DelCmd = new RelayCommand(() => this.Remove());
             }
 
         }
@@ -121,7 +123,8 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
 
         public void Add()
         {
-                WareHouses.Add(SelectedWareHouse);
+                WareHouses.Add(EditeddWareHouse);
+            EditeddWareHouse = new Warehouse();
         }
 
         public void Remove()
@@ -132,12 +135,9 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
 
         public void Uppdate()
         {
-            //if (SelectedWareHouse == null) return;
-            //WharehouseEditorWindow win = new WharehouseEditorWindow(SelectedWareHouse);
-            //if (win.ShowDialog() == true)
-            //{
-            //    WareHouses.Update(win.DataContext as WareHouse);
-            //}
+            if (EditeddWareHouse == null) return;
+            WareHouses.Update(EditeddWareHouse);
+            EditeddWareHouse = new Warehouse();                      
         }
     }
 }

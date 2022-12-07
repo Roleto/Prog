@@ -23,6 +23,7 @@ namespace MainApp_HFT_2021222.WPFClient.Windows
     {
         public WarehouseVm WareVm { get; }
 
+
         public WharehouseEditorWindow()
         {
             InitializeComponent();

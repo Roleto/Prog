@@ -4,27 +4,49 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainApp_HFT_2021222.WPFClient.Windows"
-        xmlns:model="clr-namespace:MainApp.Models.DBModels;assembly=MainApp.Models"
+        xmlns:vm="clr-namespace:MainApp_HFT_2021222.WPFClient.ViewModels"
         mc:Ignorable="d"
-        Title="BlacksmithEditorWindow" Height="302" Width="320">
+        Title="BlacksmithEditorWindow" Height="450" Width="800">    
     <Window.DataContext>
-        <model:Blacksmith/>
+        <vm:BlacksmithVm/>
     </Window.DataContext>
-    <StackPanel>
-        <Label Content="MaterialId" Background="AliceBlue"/>
-        <TextBox Text="{Binding Path=MaterialId}" />
-        <Label Content="Name" Background="AliceBlue"/>
-        <TextBox Text="{Binding Path=Name}" />
-        <Label Content="Damaged" Background="AliceBlue"/>
-        <TextBox Text="{Binding Path=Damaged}" />
-        <Label Content="BasePrice" Background="AliceBlue"/>
-        <TextBox Text="{Binding Path=BasePrice}" />
-        <Label Content="Quality" Background="AliceBlue"/>
-        <TextBox Text="{Binding Path=Quality}" />
-        
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Save" Click="OkCick" Margin="10" Padding="10" Width="75"/>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox Grid.Column="0" ItemsSource="{Binding Path=Blacksmiths}" SelectedItem="{Binding Path=SelectedBlacksmith}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Path=Id}"/>
+                        <Label Content="{Binding Path=MaterialId}"/>
+                        <Label Content="{Binding Path=Name}"/>
+                        <Label Content="{Binding Path=Damaged}"/>
+                        <Label Content="{Binding Path=BasePrice}"/>
+                        <Label Content="{Binding Path=Quality}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Column="1" >
+            <Label Content="MaterialId" Background="AliceBlue"/>
+            <TextBox Text="{Binding Path=EditeddBlacksmith.MaterialId}" />
+            <Label Content="Name" Background="AliceBlue"/>
+            <TextBox Text="{Binding Path=EditeddBlacksmith.Name, Mode=OneWay}"  />
+            <Label Content="Damaged" Background="AliceBlue"/>
+            <TextBox Text="{Binding Path=EditeddBlacksmith.Damaged}" />
+            <Label Content="BasePrice" Background="AliceBlue"/>
+            <TextBox Text="{Binding Path=EditeddBlacksmith.BasePrice}" />
+            <Label Content="Quality" Background="AliceBlue"/>
+            <TextBox Text="{Binding Path=EditeddBlacksmith.Quality}" />
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                <Button Content="Add" Command="{Binding Path=AddCmd}" Margin="10" Padding="10" Width="75"/>
+                <Button Content="Uppdate" Command="{Binding Path=ModCmd}" Margin="10" Padding="10" Width="75"/>
+                <Button Content="Delete" Command="{Binding Path=DelCmd}" Margin="10" Padding="10" Width="75"/>
+            </StackPanel>
             <Button Content="Close" Click="FalseCick"  Margin="10" Padding="10" Width="75"/>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </Window>

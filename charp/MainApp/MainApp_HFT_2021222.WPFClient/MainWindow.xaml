@@ -14,9 +14,9 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="Select A Table" Padding="10" FontSize="36" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="Warehouse" Command="{Binding Path=ChangePageToWarehouseCmd}" Margin="10" Padding="10" Width="100"/>
-                <Button Content="Blacksmith" Command="{Binding Path=ChangePageToBlacksmithCmd}" Margin="10" Padding="10" Width="100"/>
-                <Button Content="Generalstore" Command="{Binding Path=ChangePageToGeneralCmd}" Margin="10" Padding="10" Width="100" />
+                <Button Content="Warehouse" Command="{Binding Path=OpenWareCmd}" Margin="10" Padding="10" Width="100"/>
+                <Button Content="Blacksmith" Command="{Binding Path=OpenBlacksmithCmd}" Margin="10" Padding="10" Width="100"/>
+                <Button Content="Generalstore" Command="{Binding Path=OpenGeneralCmd}" Margin="10" Padding="10" Width="100" />
             </StackPanel>
         </StackPanel>
     </Grid>

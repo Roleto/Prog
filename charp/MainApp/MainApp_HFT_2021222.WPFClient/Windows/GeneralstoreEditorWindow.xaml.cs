@@ -1,4 +1,5 @@
 ﻿using MainApp.Models.DBModels;
+using MainApp_HFT_2021222.WPFClient.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +24,12 @@ namespace MainApp_HFT_2021222.WPFClient.Windows
         public GeneralstoreEditorWindow()
         {
             InitializeComponent();
-            this.DataContext = new Generalstore();
+            this.DataContext = new GeneralstoreVm();
         }
         public GeneralstoreEditorWindow(Generalstore generalstore)
         {
             InitializeComponent();
-            this.DataContext = generalstore;
+          //  this.DataContext = generalstore;
 
         }
 

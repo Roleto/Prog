@@ -1,4 +1,5 @@
 ﻿using MainApp.Models.DBModels;
+using MainApp_HFT_2021222.WPFClient.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +21,17 @@ namespace MainApp_HFT_2021222.WPFClient.Windows
     /// </summary>
     public partial class BlacksmithEditorWindow : Window
     {
+        public BlacksmithVm BlackVm { get; }
 
         public BlacksmithEditorWindow()
         {
             InitializeComponent();
-            this.DataContext = new Blacksmith();
+            this.DataContext = new BlacksmithVm();
         }
-        public BlacksmithEditorWindow(Blacksmith blacksmith)
+        public BlacksmithEditorWindow(BlacksmithVm blacksmith)
         {
             InitializeComponent();
+            BlackVm = blacksmith;
             this.DataContext = blacksmith;
 
         }

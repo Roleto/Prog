@@ -28,6 +28,16 @@ namespace MainApp.Models.DBModels
             Quality = int.Parse(help[5]);
         }
 
+        public Blacksmith(int id, int materialId, string name, bool damaged, int basePrice, int quality)
+        {
+            Id = id;
+            MaterialId = materialId;
+            Name = name;
+            Damaged = damaged;
+            BasePrice = basePrice;
+            Quality = quality;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

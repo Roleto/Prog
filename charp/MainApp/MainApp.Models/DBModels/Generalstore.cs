@@ -44,6 +44,15 @@ namespace MainApp.Models.DBModels
             
         }
 
+        public Generalstore(int id, int materialId, string name, double price, int quality)
+        {
+            Id = id;
+            MaterialId = materialId;
+            Name = name;
+            Price = price;
+            Quality = quality;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

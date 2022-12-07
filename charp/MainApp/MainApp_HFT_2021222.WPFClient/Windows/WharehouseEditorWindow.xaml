@@ -40,10 +40,11 @@
             <TextBox Text="{Binding Path=EditeddWareHouse.Quantity}" />
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                <Button Content="AddNew" Command="{Binding Path=AddCmd}" Margin="10" Padding="10" Width="75"/>
-                <Button Content="Save" Click="OkCick" Margin="10" Padding="10" Width="75"/>
-                <Button Content="Close" Click="FalseCick"  Margin="10" Padding="10" Width="75"/>
+                <Button Content="Add" Command="{Binding Path=AddCmd}" Margin="10" Padding="10" Width="75"/>
+                <Button Content="Uppdate" Command="{Binding Path=ModCmd}" Margin="10" Padding="10" Width="75"/>
+                <Button Content="Delete" Command="{Binding Path=DelCmd}" Margin="10" Padding="10" Width="75"/>
             </StackPanel>
+                <Button Content="Close" Click="FalseCick"  Margin="10" Padding="10" Width="75"/>
         </StackPanel>
     </Grid>
 </Window>
