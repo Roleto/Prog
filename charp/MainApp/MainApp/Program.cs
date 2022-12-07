@@ -226,7 +226,7 @@ internal class Program
                 Console.WriteLine("Delete data from Warehouse table.");
                 Console.Write("Id:");
                 id = int.Parse(Console.ReadLine());
-                rest.Delete(id, nameof(WareHouse));
+                rest.Delete(id, nameof(Warehouse));
                 break;
             case TableEnum.Blacksmith:
                 Console.WriteLine("Delete data from Blacksmith table.");
@@ -261,7 +261,7 @@ internal class Program
                 Console.WriteLine("Which data you want to modify");
                 Console.Write("Id:");
                 id = int.Parse(Console.ReadLine());
-                WareHouse newWare = rest.Get<WareHouse>(id, "warehouse");
+                Warehouse newWare = rest.Get<Warehouse>(id, "warehouse");
                 Console.Write("new material name: ");
                 newWare.Name = Console.ReadLine();
                 Console.Write("new Materialtype: ");
@@ -270,7 +270,7 @@ internal class Program
                 newWare.Price = int.Parse(Console.ReadLine());
                 Console.Write("new quantity: ");
                 newWare.Quantity = int.Parse(Console.ReadLine());
-                rest.Put(newWare, nameof(WareHouse));
+                rest.Put(newWare, nameof(Warehouse));
                 break;
             case TableEnum.Blacksmith:
                 Console.WriteLine("Updtating data to Blacksmith table.");
@@ -337,7 +337,7 @@ internal class Program
             default:
             case TableEnum.Warehouse:
                 Console.WriteLine("Adding data to Warehouse table.");
-                WareHouse newWare = new WareHouse();
+                Warehouse newWare = new Warehouse();
                 Console.Write("new material name: ");
                 newWare.Name = Console.ReadLine();
                 Console.Write("new Materialtype: ");
@@ -346,7 +346,7 @@ internal class Program
                 newWare.Price = int.Parse(Console.ReadLine());
                 Console.Write("new quantity: ");
                 newWare.Quantity = int.Parse(Console.ReadLine());
-                rest.Post(newWare, nameof(WareHouse));
+                rest.Post(newWare, nameof(Warehouse));
                 break;
             case TableEnum.Blacksmith:
                 Console.WriteLine("Adding data to Blacksmith table.");
@@ -402,7 +402,7 @@ internal class Program
         {
             default:
             case TableEnum.Warehouse:
-                List<WareHouse> wares = rest.Get<WareHouse>(nameof(WareHouse));
+                List<Warehouse> wares = rest.Get<Warehouse>(nameof(Warehouse));
                 Console.WriteLine("Id \t Name \t MaterialType \t Price \t Quantity");
                 foreach (var item in wares)
                 {

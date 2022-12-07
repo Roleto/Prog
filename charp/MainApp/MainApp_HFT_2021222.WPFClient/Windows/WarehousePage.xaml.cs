@@ -1,4 +1,5 @@
-﻿using MainApp_HFT_2021222.WPFClient.ViewModels;
+﻿using MainApp.Models.DBModels;
+using MainApp_HFT_2021222.WPFClient.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,24 +21,30 @@ namespace MainApp_HFT_2021222.WPFClient.Windows
     /// Interaction logic for WarehousePage.xaml
     /// </summary>
     public partial class WarehousePage : Page
-    {
-        private WarehouseVm VM;
+    {      
         public WarehousePage()
         {
             InitializeComponent();
         }
 
-        public WarehousePage(string baseurl, string table)
+        //public WarehousePage(string baseurl, string table)
+        //{
+        //    InitializeComponent();
+        //    this.DataContext = new WarehouseVm(baseurl, table);
+        //}   
+
+        public WarehousePage(RestCollection<Warehouse> table, Warehouse selectedWare)
         {
             InitializeComponent();
-            this.DataContext = new WarehouseVm(baseurl, table);
+            List.ItemsSource = table;
+            List.SelectedItem = selectedWare;
         }
-
-
-        public WarehousePage(WarehouseVm vM)
+        public void UpdtateTabele(RestCollection<Warehouse> table, Warehouse selectedWare)
         {
+            List.ItemsSource = table;
+            List.SelectedItem = selectedWare;
             InitializeComponent();
-            VM = vM;
         }
+       
     }
 }

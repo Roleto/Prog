@@ -10,16 +10,18 @@ using System.Threading.Tasks;
 
 namespace MainApp.Models.DBModels
 {
-    public class WareHouse
+    public class Warehouse
     {
-        public WareHouse()
+        private object value;
+
+        public Warehouse()
         {
             Blacksmiths = new HashSet<Blacksmith>();
             Generalstores = new HashSet<Generalstore>();
             Recepies = new HashSet<Recepie>();
         }
 
-        public WareHouse(string line):this()
+        public Warehouse(string line):this()
         {
             string[] help = line.Split(';');
             Id = int.Parse(help[0]);
@@ -28,8 +30,16 @@ namespace MainApp.Models.DBModels
             Price = int.Parse(help[3]);
             Quantity = int.Parse(help[4]);
         }
-        
-        
+
+        public Warehouse(int id, string name, string materialType, int price, object value)
+        {
+            Id = id;
+            Name = name;
+            MaterialType = materialType;
+            Price = price;
+            this.value = value;
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

@@ -4,25 +4,46 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainApp_HFT_2021222.WPFClient.Windows"
-        xmlns:model="clr-namespace:MainApp.Models.DBModels;assembly=MainApp.Models"
+        xmlns:vm="clr-namespace:MainApp_HFT_2021222.WPFClient.ViewModels"
         mc:Ignorable="d"
-        Title="WharehouseEditorWindow" Height="263" Width="320">
+        Title="WharehouseEditorWindow" Height="450" Width="800">
     <Window.DataContext>
-        <model:WareHouse/>
+        <vm:WarehouseVm/>
     </Window.DataContext>
-    <StackPanel>
-        <Label Content="MaterialId" Background="AliceBlue"/>
-        <TextBox Text="{Binding Path=MaterialId}" />
-        <Label Content="Name" Background="AliceBlue"/>
-        <TextBox Text="{Binding Path=Name}" />
-        <Label Content="Price" Background="AliceBlue"/>
-        <TextBox Text="{Binding Path=Price}" />
-        <Label Content="Quantity" Background="AliceBlue"/>
-        <TextBox Text="{Binding Path=Quantity}" />
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox Grid.Column="0" ItemsSource="{Binding Path=WareHouses}" SelectedItem="{Binding Path=SelectedWareHouse}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Path=Id}"/>
+                        <Label Content="{Binding Path=Name}"/>
+                        <Label Content="{Binding Path=MaterialType}"/>
+                        <Label Content="{Binding Path=Price}"/>
+                        <Label Content="{Binding Path=Quantity}"/>
+                        <Label Content="{Binding Path=SumPrice}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Column="1" >
+            <Label Content="Name" Background="AliceBlue"/>
+            <TextBox Text="{Binding Path=EditeddWareHouse.Name, Mode=OneWay}"  />
+            <Label Content="MaterialId" Background="AliceBlue"/>
+            <TextBox Text="{Binding Path=EditeddWareHouse.MaterialType}" />
+            <Label Content="Price" Background="AliceBlue"/>
+            <TextBox Text="{Binding Path=EditeddWareHouse.Price}" />
+            <Label Content="Quantity" Background="AliceBlue"/>
+            <TextBox Text="{Binding Path=EditeddWareHouse.Quantity}" />
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Save" Click="OkCick" Margin="10" Padding="10" Width="75"/>
-            <Button Content="Close" Click="FalseCick"  Margin="10" Padding="10" Width="75"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                <Button Content="AddNew" Command="{Binding Path=AddCmd}" Margin="10" Padding="10" Width="75"/>
+                <Button Content="Save" Click="OkCick" Margin="10" Padding="10" Width="75"/>
+                <Button Content="Close" Click="FalseCick"  Margin="10" Padding="10" Width="75"/>
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </Grid>
 </Window>

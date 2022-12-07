@@ -17,7 +17,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddTransient<StrongholdDbContext>();
 
-builder.Services.AddTransient<IRepository<WareHouse>, WarehouseRepository>();
+builder.Services.AddTransient<IRepository<Warehouse>, WarehouseRepository>();
 builder.Services.AddTransient<IRepository<Blacksmith>, BlacksmithRepository>();
 builder.Services.AddTransient<IRepository<Generalstore>, GeneralstoreRepository>();
 builder.Services.AddTransient<IRepository<Recepie>, RecepieRepository>();
@@ -58,13 +58,14 @@ app.UseExceptionHandler(c => c.Run(async context =>
 }));
 app.UseRouting();
 
+app.UseAuthorization();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapHub<SignalRHub>("/hub");
 });
 
-//app.UseAuthorization();
 
 app.MapControllers();
 

@@ -21,29 +21,29 @@ namespace MainApp.Endpoint.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WareHouse> ReadAll()
+        public IEnumerable<Warehouse> ReadAll()
         {
             return this.logic.GetAll();
         } 
 
         [HttpGet("{id}")]
-        public WareHouse Read(int id)
+        public Warehouse Read(int id)
         {
             return this.logic.Read(id);
         }
 
         [HttpPost]
-        public void Create([FromBody] WareHouse value)
+        public void Create([FromBody] Warehouse value)
         {
             this.logic.Create(value);
-            this.hub.Clients.All.SendAsync("WarehpuseCreated", value);
+            this.hub.Clients.All.SendAsync("WarehouseCreated", value);
         }
 
         [HttpPut]
-        public void Update([FromBody] WareHouse value)
+        public void Update([FromBody] Warehouse value)
         {
             this.logic.Update(value);
-            this.hub.Clients.All.SendAsync("WarehpuseUpdated", value);
+            this.hub.Clients.All.SendAsync("WarehouseUpdated", value);
         }
 
         [HttpDelete("{id}")]

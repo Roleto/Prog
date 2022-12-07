@@ -11,14 +11,14 @@ namespace MainApp.Logic.Classes
 {
     public class WarehouseLogic : IWarehouseLogic
     {
-        IRepository<WareHouse> repo;
+        IRepository<Warehouse> repo;
 
-        public WarehouseLogic(IRepository<WareHouse> repo)
+        public WarehouseLogic(IRepository<Warehouse> repo)
         {
             this.repo = repo;
         }
 
-        public void Create(WareHouse newEntity)
+        public void Create(Warehouse newEntity)
         {
             var wareh = this.repo.GetAll().FirstOrDefault(x => x.Name.ToLower() == newEntity.Name.ToLower());
 
@@ -28,7 +28,7 @@ namespace MainApp.Logic.Classes
             this.repo.Create(newEntity);
         }
 
-        public WareHouse Read(int id)
+        public Warehouse Read(int id)
         {
             var wareh = this.repo.Read(id);
 
@@ -38,7 +38,7 @@ namespace MainApp.Logic.Classes
             return wareh;
         }
 
-        public void Update(WareHouse newEntity)
+        public void Update(Warehouse newEntity)
         {
             this.repo.Update(newEntity);
         }
@@ -47,7 +47,7 @@ namespace MainApp.Logic.Classes
             this.repo.Delete(Read(id));
         }
 
-        public IEnumerable<WareHouse> GetAll()
+        public IEnumerable<Warehouse> GetAll()
         {
             return this.repo.GetAll();
         }

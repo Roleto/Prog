@@ -13,7 +13,7 @@ namespace MainApp.Models.DBModels
     {
         public Blacksmith()
         {
-            WareHouse = new HashSet<WareHouse>();
+            WareHouse = new HashSet<Warehouse>();
             Recepie = new HashSet<Recepie>();
         }
 
@@ -47,7 +47,7 @@ namespace MainApp.Models.DBModels
         public double Price { get => GetPrice(); }
 
         [JsonIgnore]
-        public virtual ICollection<WareHouse> WareHouse { get; set; }
+        public virtual ICollection<Warehouse> WareHouse { get; set; }
         [JsonIgnore]
         public virtual ICollection<Recepie> Recepie { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using MainApp.Models.DBModels;
+using MainApp_HFT_2021222.WPFClient.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,18 +21,20 @@ namespace MainApp_HFT_2021222.WPFClient.Windows
     /// </summary>
     public partial class WharehouseEditorWindow : Window
     {
+        public WarehouseVm WareVm { get; }
+
         public WharehouseEditorWindow()
         {
             InitializeComponent();
-            this.DataContext = new WareHouse();
-        }
-        public WharehouseEditorWindow(WareHouse wareHouse)
+            this.DataContext = new WarehouseVm();
+        }      
+
+        public WharehouseEditorWindow(WarehouseVm wareVm)
         {
             InitializeComponent();
-            this.DataContext = wareHouse;
-
-        }
-
+            WareVm = wareVm;
+            this.DataContext = WareVm;
+        }  
         private void OkCick(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;

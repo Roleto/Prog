@@ -7,14 +7,14 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="400"
       Title="WarehousePage">
-    <!--<Page.DataContext>
-        <local:WarehouseVm x:Name="VM"/>
-    </Page.DataContext>-->
+    <Page.DataContext>
+        <local:WarehouseVm/>
+    </Page.DataContext>
     <Grid>
-        <ListBox ItemsSource="{Binding Path=WareHouses}" SelectedItem="{Binding Path=SelectedWareHouse}">
+        <ListBox x:Name="List">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Path=Name}"/>
+                    <Label Content=""/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

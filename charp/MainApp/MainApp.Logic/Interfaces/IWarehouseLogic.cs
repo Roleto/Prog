@@ -4,11 +4,11 @@ namespace MainApp.Logic.Interfaces
 {
     public interface IWarehouseLogic
     {
-        void Create(WareHouse newEntity);
-        WareHouse Read(int id);
-        void Update(WareHouse newEntity);
+        void Create(Warehouse newEntity);
+        Warehouse Read(int id);
+        void Update(Warehouse newEntity);
         void Delete(int id);
-        IEnumerable<WareHouse> GetAll();
+        IEnumerable<Warehouse> GetAll();
 
         IEnumerable<Recepie> WhatCanCreateTheBlacksmith();
         IEnumerable<Recepie> WhatCanCreateTheGeneralStorte();

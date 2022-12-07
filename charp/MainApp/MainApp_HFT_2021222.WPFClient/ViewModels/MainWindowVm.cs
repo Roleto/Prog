@@ -26,6 +26,10 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
         private Page currentPage;
         private ContentTxpe currentPageType;
         public Dictionary<ContentTxpe,Page> Pages { get; set; }
+        public WarehouseVm WareVm { get; set; }
+        public RestCollection<Warehouse> Wares { get; set; }
+        public RestCollection<Blacksmith> Blacksmiths { get; set; }
+        public RestCollection<Generalstore> Generalstores { get; set; }
 
 
 
@@ -57,8 +61,13 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
             {
 
                 //http://localhost:5025/Warehouse
-                //WareHouses = new RestCollection<WareHouse>("http://localhost:5025/", "Warehouse", "hub");
-                AddCmd = new RelayCommand(() => this.Adding());
+                //Blacksmiths = new RestCollection<Blacksmith>("http://localhost:5025/", "Blacksmith", "hub");
+                //Generalstores = new RestCollection<Generalstore>("http://localhost:5025/", "GeneralStore", "hub");
+                
+                //ModCmd = new RelayCommand(() => this.Modding());
+                //DelCmd= new RelayCommand(() => this.Deleting());
+                
+
 
                 //    ModCmd = new RelayCommand(() =>
                 //    {
@@ -72,38 +81,42 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 //    () => { return SelectedWareHouse != null; });
                 //SelectedWareHouse = new WareHouse(); 
 
-                ChangePageToBlacksmithCmd = new RelayCommand(() => ChangePage(ContentTxpe.Blacksmith));
-                ChangePageToWarehouseCmd = new RelayCommand(() => ChangePage(ContentTxpe.WareHouse));
-                ChangePageToGeneralCmd = new RelayCommand(() => ChangePage(ContentTxpe.General));
-                Pages = new Dictionary<ContentTxpe, Page>();
-                Pages.Add(ContentTxpe.WareHouse, new WarehousePage("http://localhost:5025/", nameof(WareHouse)));
-                Pages.Add(ContentTxpe.Blacksmith, new BlacksmithPage("http://localhost:5025/", nameof(Blacksmith)));
-                Pages.Add(ContentTxpe.General, new GeneralStorePage("http://localhost:5025/", nameof(Generalstore)));
-                CurrentPage = Pages[ContentTxpe.WareHouse];
-                this.currentPageType = ContentTxpe.WareHouse;
+                ChangePageToBlacksmithCmd = new RelayCommand(() => OpenWindow(ContentTxpe.Blacksmith));
+                ChangePageToWarehouseCmd = new RelayCommand(() => OpenWindow(ContentTxpe.WareHouse));
+                ChangePageToGeneralCmd = new RelayCommand(() => OpenWindow(ContentTxpe.General));
+                
+                //Pages.Add(ContentTxpe.WareHouse, new WarehousePage("http://localhost:5025/", "Warehouse"));
+                //Pages.Add(ContentTxpe.Blacksmith, new BlacksmithPage("http://localhost:5025/", "Blacksmith"));
+                //Pages.Add(ContentTxpe.General, new GeneralStorePage("http://localhost:5025/", "GeneralStore"));
+                //(Pages[ContentTxpe.WareHouse] as WarehousePage).UpdtatePage(WareVM);
             }
            
-        }
-
-        private void ChangePage(ContentTxpe pageType)
+        }  
+        
+        private void OpenWindow(ContentTxpe pageType)
         {
-            CurrentPage = Pages[pageType];
-            this.currentPageType = pageType;
-        }
-        private void Adding()
-        {
-            switch (this.currentPageType)
+            if (Wares == null)
+            {
+                Wares = new RestCollection<Warehouse>("http://localhost:5025/", "Warehouse", "hub");
+            }
+            switch (pageType)
             {
                 case ContentTxpe.WareHouse:
+
+                    WharehouseEditorWindow win = new WharehouseEditorWindow();
+                    if (win.ShowDialog() == true)
+                    {
+
+                    }
                     break;
                 case ContentTxpe.General:
                     break;
                 case ContentTxpe.Blacksmith:
-                    (CurrentPage.DataContext as BlacksmithVm).Add(); 
                     break;
                 default:
                     break;
             }
         }
+        
     }
 }
