@@ -30,26 +30,6 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
             }
 
         }
-        //new
-        public BlacksmithVm(RestCollection<Blacksmith> blacksmith)
-        {
-            if (!IsInDesigneMode)
-            {
-                Blacksmiths = blacksmith;
-                selectedBlacksmith = blacksmith.First();
-                AddCmd = new RelayCommand(() => this.Add());
-            }
-        }
-        //new
-
-        public BlacksmithVm(string baseurl, string table)
-        {
-            if (!IsInDesigneMode)
-            {
-                var wares = new RestCollection<Blacksmith>(baseurl, table, "hub");
-                SelectedBlacksmith = Blacksmiths.FirstOrDefault();
-            }
-        }
         public RestCollection<Blacksmith> Blacksmiths { get => blacksmits; set => blacksmits = value; }
 
         public Blacksmith SelectedBlacksmith
@@ -61,23 +41,7 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 {
                     selectedBlacksmith = new Blacksmith(value.Id, value.MaterialId, value.Name, value.Damaged, value.BasePrice, value.Quality);
                     EditeddBlacksmith = value;
-                    //{
-                    //    Id = value.Id,
-                    //    Name = value.Name,
-                    //    MaterialType = value.MaterialType,
-                    //    Price = value.Price,
-                    //    Quantity = value.Quantity                   
-                    //};
-                    //editedWareHouse = new WareHouse()
-                    //{
-                    //    Id = value.Id,
-                    //    Name = value.Name,
-                    //    MaterialType = value.MaterialType,
-                    //    Price = value.Price,
-                    //    Quantity = value.Quantity
-                    //};
                     OnPropertyChanged();
-                    //(DelCmd as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
         }
@@ -90,16 +54,7 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 if (value != null)
                 {
                     editedBlacksmith = new Blacksmith(value.Id, value.MaterialId, value.Name, value.Damaged, value.BasePrice, value.Quality);
-                    //editedWareHouse = new WareHouse()
-                    //{
-                    //    Id = value.Id,
-                    //    Name = value.Name,
-                    //    MaterialType = value.MaterialType,
-                    //    Price = value.Price,
-                    //    Quantity = value.Quantity
-                    //};
                     OnPropertyChanged();
-                    //(DelCmd as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
         }

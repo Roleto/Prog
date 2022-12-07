@@ -25,10 +25,5 @@ namespace MainApp_HFT_2021222.WPFClient.Windows
         {
             InitializeComponent();
         }
-        public BlacksmithPage(string baseurl, string table)
-        {
-            InitializeComponent();
-            this.DataContext = new BlacksmithVm(baseurl, table);
-        }
     }
 }

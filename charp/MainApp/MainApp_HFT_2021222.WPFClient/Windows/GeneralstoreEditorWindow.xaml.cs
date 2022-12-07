@@ -29,7 +29,6 @@ namespace MainApp_HFT_2021222.WPFClient.Windows
         public GeneralstoreEditorWindow(Generalstore generalstore)
         {
             InitializeComponent();
-          //  this.DataContext = generalstore;
 
         }
 

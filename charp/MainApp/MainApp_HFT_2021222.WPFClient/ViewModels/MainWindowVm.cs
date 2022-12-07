@@ -23,13 +23,6 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
     }
     public class MainWindowVm : ObservableRecipient
     {
-        public WarehouseVm WareVm { get; set; }
-        public RestCollection<Warehouse> Wares { get; set; }
-        public RestCollection<Blacksmith> Blacksmiths { get; set; }
-        public RestCollection<Generalstore> Generalstores { get; set; }
-
-
-
         public static bool IsInDesigneMode 
         {
             get 
@@ -45,46 +38,15 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
         {
             if (!IsInDesigneMode)
             {
-
-                //http://localhost:5025/Warehouse
-                //Blacksmiths = new RestCollection<Blacksmith>("http://localhost:5025/", "Blacksmith", "hub");
-                //Generalstores = new RestCollection<Generalstore>("http://localhost:5025/", "GeneralStore", "hub");
-                
-                //ModCmd = new RelayCommand(() => this.Modding());
-                //DelCmd= new RelayCommand(() => this.Deleting());
-                
-
-
-                //    ModCmd = new RelayCommand(() =>
-                //    {
-                //        WareHouses.Update(SelectedWareHouse);
-                //    });
-
-                //    DelCmd = new RelayCommand(() =>
-                //    {
-                //        WareHouses.Delete(SelectedWareHouse.Id);
-                //    },
-                //    () => { return SelectedWareHouse != null; });
-                //SelectedWareHouse = new WareHouse(); 
-
                 OpenBlacksmithCmd = new RelayCommand(() => OpenWindow(ContentTxpe.Blacksmith));
                 OpenWareCmd  = new RelayCommand(() => OpenWindow(ContentTxpe.WareHouse));
                 OpenGeneralCmd  = new RelayCommand(() => OpenWindow(ContentTxpe.General));
-                
-                //Pages.Add(ContentTxpe.WareHouse, new WarehousePage("http://localhost:5025/", "Warehouse"));
-                //Pages.Add(ContentTxpe.Blacksmith, new BlacksmithPage("http://localhost:5025/", "Blacksmith"));
-                //Pages.Add(ContentTxpe.General, new GeneralStorePage("http://localhost:5025/", "GeneralStore"));
-                //(Pages[ContentTxpe.WareHouse] as WarehousePage).UpdtatePage(WareVM);
             }
            
         }  
         
         private void OpenWindow(ContentTxpe pageType)
         {
-            //if (Wares == null)
-            //{
-            //    Wares = new RestCollection<Warehouse>("http://localhost:5025/", "Warehouse", "hub");
-            //}
             switch (pageType)
             {
                 case ContentTxpe.WareHouse:

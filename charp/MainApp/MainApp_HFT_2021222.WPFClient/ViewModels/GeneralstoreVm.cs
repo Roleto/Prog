@@ -31,26 +31,6 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
             }
 
         }
-        //new
-        public GeneralstoreVm(RestCollection<Generalstore> wareHouses)
-        {
-            if (!IsInDesigneMode)
-            {
-                Generalstores = wareHouses;
-                selectedgenral = wareHouses.First();
-                AddCmd = new RelayCommand(() => this.Add());
-            }
-        }
-        //new
-
-        public GeneralstoreVm(string baseurl, string table)
-        {
-            if (!IsInDesigneMode)
-            {
-                var wares = new RestCollection<Generalstore>(baseurl, table, "hub");
-                SelectedGeneral = Generalstores.FirstOrDefault();
-            }
-        }
         public RestCollection<Generalstore> Generalstores { get => generals; set => generals = value; }
 
         public Generalstore SelectedGeneral
@@ -62,23 +42,7 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 {
                     selectedgenral = new Generalstore(value.Id, value.MaterialId, value.Name, value.Price, value.Quality);
                     EditedGeneral = value;
-                    //{
-                    //    Id = value.Id,
-                    //    Name = value.Name,
-                    //    MaterialType = value.MaterialType,
-                    //    Price = value.Price,
-                    //    Quantity = value.Quantity                   
-                    //};
-                    //editedWareHouse = new WareHouse()
-                    //{
-                    //    Id = value.Id,
-                    //    Name = value.Name,
-                    //    MaterialType = value.MaterialType,
-                    //    Price = value.Price,
-                    //    Quantity = value.Quantity
-                    //};
                     OnPropertyChanged();
-                    //(DelCmd as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
         }
@@ -91,16 +55,7 @@ namespace MainApp_HFT_2021222.WPFClient.ViewModels
                 if (value != null)
                 {
                     editedgeneral = new Generalstore(value.Id, value.MaterialId, value.Name, value.Price, value.Quality);
-                    //editedWareHouse = new WareHouse()
-                    //{
-                    //    Id = value.Id,
-                    //    Name = value.Name,
-                    //    MaterialType = value.MaterialType,
-                    //    Price = value.Price,
-                    //    Quantity = value.Quantity
-                    //};
                     OnPropertyChanged();
-                    //(DelCmd as RelayCommand).NotifyCanExecuteChanged();
                 }
             }
         }
